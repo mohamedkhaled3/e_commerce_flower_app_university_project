@@ -11,15 +11,15 @@ class Register extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 247, 247, 247),
+        backgroundColor: const Color.fromARGB(255, 247, 247, 247),
         body: Center(
           child: Padding(
-            padding: EdgeInsets.all(22),
+            padding: const EdgeInsets.all(22),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 64,
                   ),
                   TextField(
@@ -29,7 +29,7 @@ class Register extends StatelessWidget {
                       //copyWith(hintText: "Enter Your Passaword",) to add a new "ميزة"
                       decoration: decorationTextField.copyWith(
                           hintText: "Enter Your User Name :")),
-                  SizedBox(
+                  const SizedBox(
                     height: 33,
                   ),
                   TextField(
@@ -39,7 +39,7 @@ class Register extends StatelessWidget {
                       //copyWith(hintText: "Enter Your Passaword",) to add a new "ميزة"
                       decoration: decorationTextField.copyWith(
                           hintText: "Enter Your Email")),
-                  SizedBox(
+                  const SizedBox(
                     height: 33,
                   ),
                   TextField(
@@ -48,29 +48,29 @@ class Register extends StatelessWidget {
                       decoration: decorationTextField.copyWith(
                         hintText: "Enter Your Passaword",
                       )),
-                  SizedBox(
+                  const SizedBox(
                     height: 33,
                   ),
                   ElevatedButton(
                     onPressed: () {},
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(BTNgreen),
-                      padding: MaterialStateProperty.all(EdgeInsets.all(12)),
+                      padding: MaterialStateProperty.all(const EdgeInsets.all(12)),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8))),
                     ),
-                    child: Text(
+                    child: const Text(
                       "Register",
                       style: TextStyle(fontSize: 19),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 33,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Do nor have an account?",
+                      const Text("Do nor have an account?",
                           style: TextStyle(fontSize: 20)),
                       TextButton(
                         onPressed: () { //Navigate to a new screen and back "Login" without routes
@@ -80,7 +80,7 @@ class Register extends StatelessWidget {
                                 builder: (context) => const Login()),
                           );
                         },
-                        child: Text('Sign in',
+                        child: const Text('Sign in',
                             style:
                                 TextStyle(color: Colors.black, fontSize: 20)),
                       )

@@ -11,13 +11,13 @@ class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(  
       child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 247, 247, 247),
+        backgroundColor: const Color.fromARGB(255, 247, 247, 247),
         body: Center(
           child: Padding(
-            padding: EdgeInsets.all(22),
+            padding: const EdgeInsets.all(22),
             child: Column( mainAxisAlignment:  MainAxisAlignment.center,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 64,
                 ),
                 TextField(
@@ -26,7 +26,7 @@ class Login extends StatelessWidget {
                     //copyWith(hintText: "Enter Your Passaword",) to add a new "ميزة"
                     decoration: decorationTextField.copyWith(
                         hintText: "Enter Your Email")),
-                SizedBox(
+                const SizedBox(
                   height: 33,
                 ),
                 TextField(
@@ -35,29 +35,29 @@ class Login extends StatelessWidget {
                     decoration: decorationTextField.copyWith(
                       hintText: "Enter Your Passaword",
                     )),
-                SizedBox(
+                const SizedBox(
                   height: 33,
                 ),
                 ElevatedButton(
                   onPressed: () {},
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(BTNgreen),
-                    padding: MaterialStateProperty.all(EdgeInsets.all(12)),
+                    padding: MaterialStateProperty.all(const EdgeInsets.all(12)),
                     shape: MaterialStateProperty.all(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8))),
                   ),
-                  child: Text(
+                  child: const Text(
                     "Sign in",
                     style: TextStyle(fontSize: 19),
                   ),
                 ),
-                            SizedBox(
+                            const SizedBox(
                   height: 33,
                 ),
               
     Row( mainAxisAlignment: MainAxisAlignment.center,
       children: [
-      Text("Do nor have an account?",style: TextStyle(fontSize: 20)),
+      const Text("Do nor have an account?",style: TextStyle(fontSize: 20)),
       TextButton(
        onPressed: (){
           Navigator.pushReplacement(   // pushReplacement to make pop "delete" for login stack automatically 
@@ -65,7 +65,7 @@ class Login extends StatelessWidget {
     MaterialPageRoute(builder: (context) => const Register()),
   );
        },
-       child: Text('Sign up', style: TextStyle(color: Colors.black ,fontSize: 20)),)
+       child: const Text('Sign up', style: TextStyle(color: Colors.black ,fontSize: 20)),)
     
       ],
     )
