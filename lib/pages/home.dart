@@ -26,21 +26,6 @@ class Home extends StatelessWidget {
                  },
                 child: GridTile(
                   //    GridTile( ) will repeated the number of "itemCount"
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        top: -20,
-                        bottom: -20,
-                        right: 0,
-                        left: 0,
-                        child: ClipRRect( // to make curve for image 
-                          child: Image.asset(items[index].imgPath),
-                          borderRadius: BorderRadius.circular(55),
-                        ),
-                      ),
-                    ],
-                  ), 
-           
                   footer: GridTileBar(  // see backgroundColor to understand it 
               // backgroundColor: Color.fromARGB(66, 73, 127, 110),  //// to see border of footer 
                     
@@ -54,6 +39,21 @@ class Home extends StatelessWidget {
                     title: const Text( // Center of "footer" remark if we delete it + icon  palce in center
                       "",
                     ),
+                  ),
+                  //    GridTile( ) will repeated the number of "itemCount"
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        top: -20,
+                        bottom: -20,
+                        right: 0,
+                        left: 0,
+                        child: ClipRRect( // to make curve for image 
+                          borderRadius: BorderRadius.circular(55), // to make curve for image 
+                          child: Image.asset(items[index].imgPath),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               );
@@ -136,16 +136,16 @@ class Home extends StatelessWidget {
                   Positioned(
                     bottom: 22,
                     child: Container(
+                        padding: const EdgeInsets.all(2),
+                        decoration: const BoxDecoration(
+                            color: Color.fromARGB(211, 164, 255, 193),
+                            shape: BoxShape.circle),
                         child: const Text(
                           "8",
                           style: TextStyle(
                               color: Color.fromARGB(255, 0, 0, 0),
                               fontSize: 15),
-                        ),
-                        padding: const EdgeInsets.all(2),
-                        decoration: const BoxDecoration(
-                            color: Color.fromARGB(211, 164, 255, 193),
-                            shape: BoxShape.circle)),
+                        )),
                   ),
                   IconButton(
                       onPressed: () {}, icon: const Icon(Icons.add_shopping_cart)),
