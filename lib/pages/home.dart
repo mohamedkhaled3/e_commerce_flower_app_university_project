@@ -1,4 +1,5 @@
 import 'package:e_commerce_flower_app_university_project/model/item.dart';
+import 'package:e_commerce_flower_app_university_project/pages/details_screen.dart';
 import 'package:e_commerce_flower_app_university_project/shared/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -21,8 +22,12 @@ class Home extends StatelessWidget {
             itemCount: items.length,
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(  // GestureDetector() to make GridTile like buttom 
-                 onTap: () {
-
+              
+                 onTap: () {  // Navigate and pass data to the detail screen
+                Navigator.push(context,MaterialPageRoute(
+               builder: (context) => Details(product: items[index],),
+               
+      ), );
                  },
                 child: GridTile(
                   //    GridTile( ) will repeated the number of "itemCount"
