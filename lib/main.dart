@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         create: (context) {return Cart();},
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: Details(product: items[0] ),  /// product: items[index],
+        home: Home(priceItem: items[0], ),  /// product: items[index],
       ),
     );
   }

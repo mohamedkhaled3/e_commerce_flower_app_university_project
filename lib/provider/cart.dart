@@ -1,11 +1,20 @@
 // cart is "عربه التسوق"
-// 😍😍 2 provider 
- import 'package:flutter/material.dart';
+// 😍😍 2 provider
+import 'package:e_commerce_flower_app_university_project/model/item.dart';
+import 'package:flutter/material.dart';
 
-  class Cart with ChangeNotifier {   // ChangeNotifier is data in provider can access by any page
+class Cart with ChangeNotifier {
+  // ChangeNotifier is data in provider can access by any page
 
- String home = "Home"; //🎈🎈🎈
- String details_Screen= "Details Screen"; // 💧💧💧 
+  List selectedProduct = [
+    // contais data when button on "+" in home page
+  ];
+  double price = 0;
 
-// use "notifyListeners();" at the end of every method
+// to add product_details into list
+  add(Item product) {
+    selectedProduct.add(product);
+    price += product.price.round() ; // .round() "علشان اقربه لاقرب رقم صحيح"
+    notifyListeners(); //always use to to make setState Automatically  at the end of every method
+  }
 }
