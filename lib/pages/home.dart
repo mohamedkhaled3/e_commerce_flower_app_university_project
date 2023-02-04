@@ -1,7 +1,9 @@
 import 'package:e_commerce_flower_app_university_project/model/item.dart';
 import 'package:e_commerce_flower_app_university_project/pages/details_screen.dart';
+import 'package:e_commerce_flower_app_university_project/provider/cart.dart';
 import 'package:e_commerce_flower_app_university_project/shared/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
   //  const Home({super.key});
@@ -143,7 +145,10 @@ class Home extends StatelessWidget {
       appBar: AppBar(
         // leading: Text("rfff"), //////////////// remove icon of Drawer
         backgroundColor: appbarGreen,
-        title: const Text("Home"),
+        title: Consumer<Cart>( //🎈🎈🎈 of Cart_class && // 😍😍 3 provider // rather than // Text("Home"),
+                   builder: ((context, classInstancee, child) {
+                    return Text("${classInstancee.home}");
+})), // Text("Home"),
         actions: [
           // the end of AppBar  & "leading is start of AppBar"
           Row(

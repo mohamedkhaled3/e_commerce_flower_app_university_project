@@ -3,7 +3,10 @@ import 'package:e_commerce_flower_app_university_project/model/item.dart';
 import 'package:e_commerce_flower_app_university_project/pages/details_screen.dart';
 import 'package:e_commerce_flower_app_university_project/pages/home.dart';
 import 'package:e_commerce_flower_app_university_project/pages/login.dart';
+import 'package:e_commerce_flower_app_university_project/provider/cart.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -13,9 +16,12 @@ class MyApp extends StatelessWidget {
  
   @override
   Widget build(BuildContext context) {
-    return   MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Home(priceItem: items[0] ),  /// product: items[index],
+    return   ChangeNotifierProvider( // see any change in Cart_class  && // 😍😍 1 provider 
+        create: (context) {return Cart();},
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Details(product: items[0] ),  /// product: items[index],
+      ),
     );
   }
 }
