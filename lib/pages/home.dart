@@ -4,8 +4,11 @@ import 'package:e_commerce_flower_app_university_project/shared/colors.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
-   const Home({super.key});
-   
+  //  const Home({super.key});
+  Item priceItem;
+
+  Home({required this.priceItem});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,33 +18,44 @@ class Home extends StatelessWidget {
             //GridView.builder() like listView.builder  but for row not column and almost use GridTile with it
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2, // number of element in x-axis
-                childAspectRatio: 3 / 2, // "النسبه " between element of length & weight  
+                childAspectRatio:
+                    3 / 2, // "النسبه " between element of length & weight
                 crossAxisSpacing: 10, // space between elements in x_axix
                 mainAxisSpacing: 50), // space between elements in y_axix
 
             itemCount: items.length,
             itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(  // GestureDetector() to make GridTile like buttom 
-              
-                 onTap: () {  // Navigate and pass data to the detail screen
-                Navigator.push(context,MaterialPageRoute(
-               builder: (context) => Details(product: items[index],),
-               
-      ), );
-                 },
+              return GestureDetector(
+                // GestureDetector() to make GridTile like buttom
+
+                onTap: () {
+                  // Navigate and pass data to the detail screen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Details(
+                        product: items[index],
+                      ), // "Details" is page that navigater for it && "items" is data that is pass
+                    ),
+                  );
+                },
                 child: GridTile(
                   //    GridTile( ) will repeated the number of "itemCount"
-                  footer: GridTileBar(  // see backgroundColor to understand it 
-              // backgroundColor: Color.fromARGB(66, 73, 127, 110),  //// to see border of footer 
-                    
-                    trailing: IconButton( // Right of "footer"
+                  footer: GridTileBar(
+                    // see backgroundColor to understand it
+                    // backgroundColor: Color.fromARGB(66, 73, 127, 110),  //// to see border of footer
+
+                    trailing: IconButton(
+                        // Right of "footer"
                         color: const Color.fromARGB(255, 62, 94, 70),
                         onPressed: () {},
                         icon: const Icon(Icons.add)),
-              
-                    leading: const Text("\$12.99"), // left of "footer"
-              
-                    title: const Text( // Center of "footer" remark if we delete it + icon  palce in center
+
+                    leading: // left of "footer" 
+                         Text("\$  ${priceItem.price}",), // we dont use widget. bec statelessWidget
+
+                    title: const Text(
+                      // Center of "footer" remark if we delete it + icon  palce in center
                       "",
                     ),
                   ),
@@ -53,8 +67,10 @@ class Home extends StatelessWidget {
                         bottom: -20,
                         right: 0,
                         left: 0,
-                        child: ClipRRect( // to make curve for image 
-                          borderRadius: BorderRadius.circular(55), // to make curve for image 
+                        child: ClipRRect(
+                          // to make curve for image
+                          borderRadius: BorderRadius.circular(
+                              55), // to make curve for image
                           child: Image.asset(items[index].imgPath),
                         ),
                       ),
@@ -64,7 +80,6 @@ class Home extends StatelessWidget {
               );
             }),
       ),
-    
       drawer: Drawer(
         // 📑📑 when we add leading the drawer : يختفي :
         child: Column(
@@ -78,16 +93,14 @@ class Home extends StatelessWidget {
                   // to make background image "flower image"
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                        image:
-                            AssetImage("assets/img/backgroundImage.jpg"),
+                        image: AssetImage("assets/img/backgroundImage.jpg"),
                         fit: BoxFit
                             .cover), //"fit: BoxFit.cover" -- to make max size can take
                   ),
                   // to make text of accountName
                   accountName: Text(
                     "mohamed khaled",
-                    style:
-                        TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                    style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                   ),
                   // to make text of accountEmail
                   accountEmail: Text(
@@ -127,7 +140,6 @@ class Home extends StatelessWidget {
           ],
         ),
       ),
-  
       appBar: AppBar(
         // leading: Text("rfff"), //////////////// remove icon of Drawer
         backgroundColor: appbarGreen,
@@ -153,7 +165,8 @@ class Home extends StatelessWidget {
                         )),
                   ),
                   IconButton(
-                      onPressed: () {}, icon: const Icon(Icons.add_shopping_cart)),
+                      onPressed: () {},
+                      icon: const Icon(Icons.add_shopping_cart)),
                 ],
               ),
               const Padding(
@@ -164,7 +177,6 @@ class Home extends StatelessWidget {
           ),
         ],
       ),
-    
     );
   }
 }

@@ -57,15 +57,15 @@ class _DetailsState extends State<Details> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Image.asset(widget.product.imgPath  ,
-                          
+              Image.asset(widget.product.imgPath  , // we add widget. bec we use statefullWidget bec there exist 2 class && "product" is data of class that link between (Details_class && Items_class)
+                                                    // "widget.product.imgPath" is image of class "Item" 
                 width: double.infinity,
               ),
               SizedBox(
                 height: 12,
               ),
               Text(
-                "\$  ${widget.product.price}",
+                "\$  ${widget.product.price}",  // is price of class "Item"
                 style: TextStyle(fontSize: 20),
               ),
               Padding(

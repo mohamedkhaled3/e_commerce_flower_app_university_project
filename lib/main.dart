@@ -1,4 +1,5 @@
 
+import 'package:e_commerce_flower_app_university_project/model/item.dart';
 import 'package:e_commerce_flower_app_university_project/pages/details_screen.dart';
 import 'package:e_commerce_flower_app_university_project/pages/home.dart';
 import 'package:e_commerce_flower_app_university_project/pages/login.dart';
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return   MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      home: Home(priceItem: items[0] ),  /// product: items[index],
     );
   }
 }

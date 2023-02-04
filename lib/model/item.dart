@@ -1,3 +1,4 @@
+// Item is product 
 class Item {
   String imgPath;
   double price;
