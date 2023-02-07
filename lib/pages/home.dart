@@ -1,8 +1,8 @@
-import 'dart:js_util';
 
 import 'package:e_commerce_flower_app_university_project/model/item.dart';
 import 'package:e_commerce_flower_app_university_project/pages/details_screen.dart';
 import 'package:e_commerce_flower_app_university_project/provider/cart.dart';
+import 'package:e_commerce_flower_app_university_project/shared/appbar.dart';
 import 'package:e_commerce_flower_app_university_project/shared/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +15,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+      final classInstancee = Provider.of<Cart>(context);  // Cart is 😍😍 2 provider
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 22),
@@ -49,20 +50,16 @@ class Home extends StatelessWidget {
                     // see backgroundColor to understand it
                     // backgroundColor: Color.fromARGB(66, 73, 127, 110),  //// to see border of footer
 
-                    trailing: Consumer<Cart>(
-                        // provider  when click to "+" we add data of "items" to list of "Cart_class"
-                        builder: ((context, classInstancee, child) {
-                      return IconButton(
+                    trailing:                         
+                       IconButton(
                           // Right of "footer"
                           color: const Color.fromARGB(255, 62, 94, 70),
                           onPressed: () {
                             classInstancee.add(items[
                                 index]); //when click to "+" we add data of "items" to list of "Cart_class"
                           },
-                          icon: const Icon(Icons.add));
-                    })),
-
-                    leading: // left of "footer"
+                          icon: const Icon(Icons.add)),
+                          leading: // left of "footer"
                         Text(
                       "\$  ${priceItem.price}",
                     ), // we dont use widget. bec statelessWidget
@@ -157,40 +154,8 @@ class Home extends StatelessWidget {
         // leading: Text("rfff"), //////////////// remove icon of Drawer
         backgroundColor: appbarGreen,
         title: const Text("Home"),
-        actions: [
-          // the end of AppBar  & "leading is start of AppBar"
-          Consumer<Cart>(builder: ((context, classInstancee, child) {
-            return Row(
-              children: [
-                Stack(
-                  children: [
-                    Positioned(
-                      bottom: 22,
-                      child: Container(
-                          padding: const EdgeInsets.all(2),
-                          decoration: const BoxDecoration(
-                              color: Color.fromARGB(211, 164, 255, 193),
-                              shape: BoxShape.circle),
-                          child: Text(
-                            "${classInstancee.selectedProduct.length}", // before const 0 but now change when click to "+"
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 0, 0, 0),
-                                fontSize: 15),
-                          )),
-                    ),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.add_shopping_cart)),
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsets.only(right: 12),
-                  child: Text(
-                      "\$ ${classInstancee.price}  "), 
-                ),
-              ],
-            );
-          })),
+        actions: [  // the end of AppBar  & "leading is start of AppBar"
+           ProductsAndPrice(),
         ],
       ),
     );

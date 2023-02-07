@@ -17,4 +17,11 @@ class Cart with ChangeNotifier {
     price += product.price.round() ; // .round() "علشان اقربه لاقرب رقم صحيح"
     notifyListeners(); //always use to to make setState Automatically  at the end of every method
   }
+  // to remove product_details into list
+  remove(Item product){
+    selectedProduct.remove(product);
+    price -= product.price.round() ; 
+    notifyListeners();
+
+  }
 }

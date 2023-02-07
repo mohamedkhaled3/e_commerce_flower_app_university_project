@@ -1,4 +1,5 @@
 import 'package:e_commerce_flower_app_university_project/model/item.dart';
+import 'package:e_commerce_flower_app_university_project/shared/appbar.dart';
 import 'package:e_commerce_flower_app_university_project/shared/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -21,37 +22,10 @@ class _DetailsState extends State<Details> {
           // leading: Text("rfff"), //////////////// remove icon of Drawer
           backgroundColor: appbarGreen,
           title: const Text("Details Screen"),
-          actions: [
-            // the end of AppBar  & "leading is start of AppBar"
-            Row(
-              children: [
-                Stack(
-                  children: [
-                    Positioned(
-                      bottom: 22,
-                      child: Container(
-                          padding: const EdgeInsets.all(2),
-                          decoration: const BoxDecoration(
-                              color: Color.fromARGB(211, 164, 255, 193),
-                              shape: BoxShape.circle),
-                          child: const Text(
-                            "8",
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 0, 0, 0),
-                                fontSize: 15),
-                          )),
-                    ),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.add_shopping_cart)),
-                  ],
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(right: 12),
-                  child: Text("\$ 128"), //  \$ to make 128 not variable
-                ),
-              ],
-            ),
+          actions: [   // the end of AppBar  & "leading is start of AppBar"
+          
+            ProductsAndPrice(),
+
           ],
         ),
         body: SingleChildScrollView(
