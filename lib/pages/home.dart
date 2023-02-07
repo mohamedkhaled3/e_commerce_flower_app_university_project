@@ -1,5 +1,5 @@
-
 import 'package:e_commerce_flower_app_university_project/model/item.dart';
+import 'package:e_commerce_flower_app_university_project/pages/checkout.dart';
 import 'package:e_commerce_flower_app_university_project/pages/details_screen.dart';
 import 'package:e_commerce_flower_app_university_project/provider/cart.dart';
 import 'package:e_commerce_flower_app_university_project/shared/appbar.dart';
@@ -8,14 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
-  //  const Home({super.key});
-  Item priceItem;
-
-  Home({required this.priceItem});
-
+  const Home({super.key});
   @override
   Widget build(BuildContext context) {
-      final classInstancee = Provider.of<Cart>(context);  // Cart is 😍😍 2 provider
+    final classInstance =
+        Provider.of<Cart>(context); // Cart is 😍😍 2 provider
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 22),
@@ -50,20 +47,18 @@ class Home extends StatelessWidget {
                     // see backgroundColor to understand it
                     // backgroundColor: Color.fromARGB(66, 73, 127, 110),  //// to see border of footer
 
-                    trailing:                         
-                       IconButton(
-                          // Right of "footer"
-                          color: const Color.fromARGB(255, 62, 94, 70),
-                          onPressed: () {
-                            classInstancee.add(items[
-                                index]); //when click to "+" we add data of "items" to list of "Cart_class"
-                          },
-                          icon: const Icon(Icons.add)),
-                          leading: // left of "footer"
-                        Text(
-                      "\$  ${priceItem.price}",
-                    ), // we dont use widget. bec statelessWidget
+                    trailing: IconButton(
+                        // Right of "footer"
+                        color: const Color.fromARGB(255, 62, 94, 70),
+                        onPressed: () {
+                          classInstance.add(items[
+                              index]); //when click to "+" we add data of "items" to list of "Cart_class"
+                        },
+                        icon: const Icon(Icons.add)),
+                    leading: // left of "footer"
 
+                        const Text(
+                            '\$12.99'), // we dont use widget. bec statelessWidget
                     title: const Text(
                       // Center of "footer" remark if we delete it + icon  palce in center
                       "",
@@ -128,11 +123,26 @@ class Home extends StatelessWidget {
                     // ListTile is widget  we use it in past in "المشروع بتاع " WORLD TIME APP Title in center
                     title: const Text("Home"), // Title in center
                     leading: const Icon(Icons.home), // leading in left
-                    onTap: () {}),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Home(),
+                        ),
+                      );
+                    }),
                 ListTile(
                     title: const Text("My products"),
                     leading: const Icon(Icons.add_shopping_cart),
-                    onTap: () {}),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              CheckOut(), // "CheckOut" is page that navigater for it &&
+                        ),
+                      );
+                    }),
                 ListTile(
                     title: const Text("About"),
                     leading: const Icon(Icons.help_center),
@@ -154,8 +164,10 @@ class Home extends StatelessWidget {
         // leading: Text("rfff"), //////////////// remove icon of Drawer
         backgroundColor: appbarGreen,
         title: const Text("Home"),
-        actions: [  // the end of AppBar  & "leading is start of AppBar"
-           ProductsAndPrice(),
+        // ignore: prefer_const_literals_to_create_immutables
+        actions: [
+          // the end of AppBar  & "leading is start of AppBar"
+           const ProductsAndPrice(),
         ],
       ),
     );

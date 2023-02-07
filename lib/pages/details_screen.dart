@@ -13,6 +13,7 @@ class Details extends StatefulWidget {
 
 class _DetailsState extends State<Details> {
   bool isShowMore = true;
+  // ignore: non_constant_identifier_names
   bool isShowAll_Or_ShowLess = true;
 
   @override
@@ -22,7 +23,7 @@ class _DetailsState extends State<Details> {
           // leading: Text("rfff"), //////////////// remove icon of Drawer
           backgroundColor: appbarGreen,
           title: const Text("Details Screen"),
-          actions: [   // the end of AppBar  & "leading is start of AppBar"
+          actions: const [   // the end of AppBar  & "leading is start of AppBar"
           
             ProductsAndPrice(),
 
@@ -35,67 +36,69 @@ class _DetailsState extends State<Details> {
                                                     // "widget.product.imgPath" is image of class "Item" 
                 width: double.infinity,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 12,
               ),
               Text(
                 "\$  ${widget.product.price}",  // is price of class "Item"
-                style: TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 20),
               ),
               Padding(
                 padding: const EdgeInsets.all(9.0),
                 child: Row(
                   children: [
                     Container(
-                      padding: EdgeInsets.all(5),
-                      child: Text(
-                        "new",
+                      padding: const EdgeInsets.all(5),
+                      // ignore: sort_child_properties_last
+                      child: const Text(
+                        'new',
                         style: TextStyle(fontSize: 15),
                       ),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        color: Color.fromARGB(255, 255, 129, 129),
+                        color: const Color.fromARGB(255, 255, 129, 129),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
+                    const SizedBox(
+                      width: 60,
+                    ),
                     Row(
+                      // ignore: prefer_const_literals_to_create_immutables
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.star,
                           color: Color.fromARGB(255, 255, 191, 0),
                           size: 25.0,
                         ),
-                        Icon(
+                        const Icon(
                           Icons.star,
                           color: Color.fromARGB(255, 255, 191, 0),
                           size: 25.0,
                         ),
-                        Icon(
+                        const Icon(
                           Icons.star,
                           color: Color.fromARGB(255, 255, 191, 0),
                           size: 25.0,
                         ),
-                        Icon(
+                        const Icon(
                           Icons.star,
                           color: Color.fromARGB(255, 255, 191, 0),
                           size: 25.0,
                         ),
-                        Icon(
+                        const Icon(
                           Icons.star,
                           color: Color.fromARGB(255, 255, 191, 0),
                           size: 25.0,
                         ),
                       ],
                     ),
-                    SizedBox(
-                      width: 60,
-                    ),
                     Row(
                       children: [
-                        Icon(Icons.edit_location),
-                        SizedBox(
+                        const Icon(Icons.edit_location),
+                        const SizedBox(
                           width: 5,
                         ),
                         Text( widget.product.location),
@@ -105,19 +108,19 @@ class _DetailsState extends State<Details> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(9.0),
+                padding: const EdgeInsets.all(9.0),
                 width: double.infinity,
-                child: Text(
+                child: const Text(
                   "Details :",
                   style: TextStyle(fontSize: 17),
                   textAlign: TextAlign.start,
                 ),
               ),
               Container(
-                  padding: EdgeInsets.all(2.0),
+                  padding: const EdgeInsets.all(2.0),
                   child: Text(
                     "A flower, sometimes known as a bloom or blossom, is the reproductive structure found in flowering plants (plants of the division Angiospermae). The biological function of a flower is to facilitate reproduction, usually by providing a mechanism for the union of sperm with eggs. Flowers may facilitate outcrossing (fusion of sperm and eggs from different individuals in a population) resulting from cross-pollination or allow selfing (fusion of sperm and egg from the same flower) when self-pollination occurs",
-                    style: TextStyle(fontSize: 15),
+                    style: const TextStyle(fontSize: 15),
                     maxLines: isShowMore ? 3 : null,
                     overflow: TextOverflow.fade,
                   )),
@@ -128,12 +131,12 @@ class _DetailsState extends State<Details> {
                     isShowAll_Or_ShowLess = !isShowAll_Or_ShowLess;
                   });
                 },
+                clipBehavior: Clip.none,
                 child: Text(
                   isShowAll_Or_ShowLess ? 'showe more ' : "show less",
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Color.fromARGB(255, 14, 140, 171), fontSize: 18),
                 ),
-                clipBehavior: Clip.none,
               ),
             ],
           ),

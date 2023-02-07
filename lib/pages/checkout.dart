@@ -9,13 +9,13 @@ import 'package:provider/provider.dart';
 class CheckOut extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final classInstancee =
+    final classInstances =
         Provider.of<Cart>(context); // Cart is 😍😍 2 provider
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appbarGreen,
-        title: Text("CheckOut Screen"),
-        actions: [ProductsAndPrice()],
+        title: const Text("CheckOut Screen"),
+        actions: const [ProductsAndPrice()],
       ),
       body: Column(
         children: [
@@ -24,43 +24,43 @@ class CheckOut extends StatelessWidget {
               height: 500,
               child: ListView.builder(
                   padding: const EdgeInsets.all(8),
-                  itemCount: classInstancee.selectedProduct.length,
+                  itemCount: classInstances.selectedProduct.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Card(
                       child: ListTile(
                         leading: CircleAvatar(
                           backgroundImage: AssetImage(
-                              classInstancee.selectedProduct[index].imgPath),
+                              classInstances.selectedProduct[index].imgPath),
                         ),
-                        title: Text(classInstancee.selectedProduct[index].name),
+                        title: Text(classInstances.selectedProduct[index].name),
                         subtitle: Text(
-                            "  ${classInstancee.selectedProduct[index].price} - ${classInstancee.selectedProduct[index].location} "),
+                            "  ${classInstances.selectedProduct[index].price} - ${classInstances.selectedProduct[index].location} "),
                         trailing: IconButton(
                             onPressed: () {
                               // classInstancee.selectedProduct.remove(index);
                               // classInstancee.notifyListeners();
-                                 classInstancee.remove(classInstancee.selectedProduct[ index]); //when click to "-" we remove data in everywhere   
+                                 classInstances.remove(classInstances.selectedProduct[ index]); //when click to "-" we remove data in everywhere   
                             },
-                            icon: Icon(Icons.remove)),
+                            icon: const Icon(Icons.remove)),
                       ),
                     );
                   }),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
           ElevatedButton(
             onPressed: () {},
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(BTNpink),
-              padding: MaterialStateProperty.all(EdgeInsets.all(12)),
+              backgroundColor: MaterialStateProperty.all(BTPink),
+              padding: MaterialStateProperty.all(const EdgeInsets.all(12)),
               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8))),
             ),
             child: Text(
-              "Pay \$${classInstancee.price}  ",
-              style: TextStyle(fontSize: 19),
+              "Pay \$${classInstances.price}  ",
+              style: const TextStyle(fontSize: 19),
             ),
           ),
         ],

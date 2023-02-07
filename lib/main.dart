@@ -21,8 +21,7 @@ class MyApp extends StatelessWidget {
         create: (context) {return Cart();},
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: Home(priceItem:   Item(name:"product1" ,imgPath: "assets/img/1.webp", price: 12.99, location: "fayoum"),
-),  /// product: items[index],
+        home: Home(),
       ),
     );
   }
