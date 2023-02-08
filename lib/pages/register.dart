@@ -14,6 +14,7 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  bool IsVisibility_password = false;
   final _formKey = GlobalKey<
       FormState>(); //😉😉 to make validation when data it wrong "not valid " dont send to firebase
   bool IsLoading = false;
@@ -85,7 +86,11 @@ class _RegisterState extends State<Register> {
                         obscureText: false, // text not password ***
                         //copyWith(hintText: "Enter Your Passaword",) to add a new "ميزة"
                         decoration: decorationTextField.copyWith(
-                            hintText: "Enter Your User Name :")),
+                          hintText: "Enter Your User Name :",
+                          suffixIcon: Icon(
+                            Icons.person,
+                          ), // "suffixIcon" in right of texstfield
+                        )),
                     const SizedBox(
                       height: 33,
                     ),
@@ -108,7 +113,11 @@ class _RegisterState extends State<Register> {
                         obscureText: false, // text not password ***
                         //copyWith(hintText: "Enter Your Passaword",) to add a new "ميزة"
                         decoration: decorationTextField.copyWith(
-                            hintText: "Enter Your Email")),
+                          hintText: "Enter Your Email",
+                          suffixIcon: Icon(
+                            Icons.email,
+                          ), // "suffixIcon" in right of texstfield
+                        )),
                     const SizedBox(
                       height: 33,
                     ),
@@ -126,9 +135,18 @@ class _RegisterState extends State<Register> {
                         controller:
                             PasswordController, // 2😎 Handle changes to a text field
                         keyboardType: TextInputType.text, // shape of keyboard
-                        obscureText: true, // text not password ***
+                        obscureText: IsVisibility_password ?  false  : true,  // text password ***
                         decoration: decorationTextField.copyWith(
                           hintText: "Enter Your Passaword",
+                          suffixIcon: 
+                               IconButton(
+                                  icon:IsVisibility_password ? Icon(Icons.visibility) : Icon(Icons.visibility_off)  ,
+                                  onPressed: () {
+                                   setState(() {
+                                      IsVisibility_password =! IsVisibility_password;
+                                   });
+                                  },
+                                ), // "suffixIcon" in right of texstfield
                         )),
                     const SizedBox(
                       height: 33,
