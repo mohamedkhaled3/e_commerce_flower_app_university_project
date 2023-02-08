@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "980682472800",
+    "project_id": "flower-app-3fdec",
+    "storage_bucket": "flower-app-3fdec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:980682472800:android:a8c878ee4ae98968a5b205",
+        "android_client_info": {
+          "package_name": "com.example.e_commerce_flower_app_university_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "980682472800-ff47tsm161kicr778f1s6k6jfooph4it.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJuQ_cvGUiKS719ZYXlWZxvbWbNqCOvdk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "980682472800-ff47tsm161kicr778f1s6k6jfooph4it.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
