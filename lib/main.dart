@@ -4,6 +4,7 @@ import 'package:e_commerce_flower_app_university_project/pages/checkout.dart';
 import 'package:e_commerce_flower_app_university_project/pages/details_screen.dart';
 import 'package:e_commerce_flower_app_university_project/pages/home.dart';
 import 'package:e_commerce_flower_app_university_project/pages/login.dart';
+import 'package:e_commerce_flower_app_university_project/pages/register.dart';
 import 'package:e_commerce_flower_app_university_project/provider/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         create: (context) {return Cart();},
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: Home(),
+        home: Register(),
       ),
     );
   }

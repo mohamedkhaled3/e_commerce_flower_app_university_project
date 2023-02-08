@@ -62,7 +62,7 @@ class Login extends StatelessWidget {
        onPressed: (){
           Navigator.pushReplacement(   // pushReplacement to make pop "delete" for login stack automatically 
     context,                           ////Navigate to a new screen and back "Sign up" without routes
-    MaterialPageRoute(builder: (context) => const Register()),
+    MaterialPageRoute(builder: (context) =>  Register()),
   );
        },
        child: const Text('Sign up', style: TextStyle(color: Colors.black ,fontSize: 20)),)
