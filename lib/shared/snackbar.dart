@@ -1,3 +1,6 @@
+// use it in FirebaseAuthException_class in register
+// when user input in textfield any thing wrong 
+
 import 'package:flutter/material.dart';
 
  showSnackBar(BuildContext context, String text) {
