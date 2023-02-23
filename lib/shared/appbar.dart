@@ -1,5 +1,5 @@
 import 'package:e_commerce_flower_app_university_project/model/item.dart';
-import 'package:e_commerce_flower_app_university_project/pages/checkout.dart';
+import 'package:e_commerce_flower_app_university_project/screens/checkout.dart';
 import 'package:e_commerce_flower_app_university_project/provider/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

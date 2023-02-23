@@ -1,9 +1,10 @@
 import 'package:e_commerce_flower_app_university_project/model/item.dart';
-import 'package:e_commerce_flower_app_university_project/pages/checkout.dart';
-import 'package:e_commerce_flower_app_university_project/pages/details_screen.dart';
+import 'package:e_commerce_flower_app_university_project/screens/checkout.dart';
+import 'package:e_commerce_flower_app_university_project/screens/details_screen.dart';
 import 'package:e_commerce_flower_app_university_project/provider/cart.dart';
 import 'package:e_commerce_flower_app_university_project/shared/appbar.dart';
 import 'package:e_commerce_flower_app_university_project/shared/colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -150,7 +151,10 @@ class Home extends StatelessWidget {
                 ListTile(
                     title: const Text("Logout"),
                     leading: const Icon(Icons.exit_to_app),
-                    onTap: () {}),
+                    onTap: () async {
+                      // لتسجيل خروج مستخدم
+                      await FirebaseAuth.instance.signOut();
+                    }),
               ],
             ),
 

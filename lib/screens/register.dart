@@ -1,4 +1,4 @@
-import 'package:e_commerce_flower_app_university_project/pages/login.dart';
+import 'package:e_commerce_flower_app_university_project/screens/login.dart';
 import 'package:e_commerce_flower_app_university_project/shared/colors.dart';
 import 'package:e_commerce_flower_app_university_project/shared/constants.dart';
 import 'package:e_commerce_flower_app_university_project/shared/snackbar.dart';
@@ -23,7 +23,7 @@ class _RegisterState extends State<Register> {
   final passwordController =
       TextEditingController(); // 1😎 Handle changes to a text field
 
-  // لإنشاء حساب مستخدم جديد بكلمة مرور  by connection to fireb// 🥱🥱ase
+  // لإنشاء حساب مستخدم جديد بكلمة مرور  by connection to firebase// 🥱🥱
   register() async {
     setState(() {
       IsLoading = true;
@@ -42,7 +42,7 @@ class _RegisterState extends State<Register> {
         // print('The account already exists for that email.');
         showSnackBar(context, "email-already-in-use");
       } else {
-        showSnackBar(context, "ERROR - please try again later"); // ex offline
+        showSnackBar(context, "ERROR - please Done again later"); // ex offline
       }
     } catch (e) {
       showSnackBar(context, e.toString());
@@ -52,8 +52,8 @@ class _RegisterState extends State<Register> {
     });
   }
 
-  // 4 😍😎 Handle changes to a text field
-//stop listening when the widget is deleted."increase preformance"
+  // 4😎 Handle changes to a text field
+//stop listening when the widget is deleted."increase preformance" &&  use only StatefulWidget
   @override
   void dispose() {
     emailController.dispose();
@@ -140,7 +140,7 @@ class _RegisterState extends State<Register> {
                         },
                         //copyWith(hintText: "Enter Your Passaword",) to add a new "ميزة"
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        controller: emailController,
+                        controller: emailController,  //2 😍 Handle changes to a text field
                         keyboardType: TextInputType.emailAddress,
                         obscureText: false,
                         decoration: decorationTextField.copyWith(
@@ -167,7 +167,7 @@ class _RegisterState extends State<Register> {
                         autovalidateMode: AutovalidateMode
                             .onUserInteraction, // to see that email vailed automatically or not when user write it
                         controller:
-                            passwordController, // 2😎 Handle changes to a text field
+                            passwordController, // 2😍 Handle changes to a text field
                         keyboardType: TextInputType.text, // shape of keyboard
                         obscureText: IsVisibility_password
                             ? false
@@ -324,10 +324,18 @@ class _RegisterState extends State<Register> {
                       height: 33,
                     ),
                     ElevatedButton(
-                      onPressed: () {
-                        register();
+                      onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          register();
+                         await register();  // await to wait finish it first then showSnackBar()               
+                          if (!mounted) return;   // this good for performance "https://dart-lang.github.io/linter/lints/use_build_context_synchronously.html"
+                             //Navigate to a new screen and back "Login" without routes
+                            Navigator.pushReplacement(
+                              // we dont use "push" we use pushReplacement to make pop "delete" for login stack automatically
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>  Login()),
+                            );
+
                         } else {
                           showSnackBar(context, "ERROR");
                         } //😉😉 to make validation when data it wrong "not valid " dont send to firebase && and give us "showSnackBar (ERROR)"
@@ -366,7 +374,7 @@ class _RegisterState extends State<Register> {
                               // we dont use "push" we use pushReplacement to make pop "delete" for login stack automatically
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const Login()),
+                                  builder: (context) =>  Login()),
                             );
                           },
                           child: const Text('Sign in',
