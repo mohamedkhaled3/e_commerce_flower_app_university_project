@@ -14,26 +14,28 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  bool IsVisibility_password = false;
+  bool IsLoading = false;
   final emailController = TextEditingController();
   // 1😍 Handle changes to a text field
   final passwordController = TextEditingController();
   // 1😎 Handle changes to a text field
   signIn() async {
+    setState(() {
+      IsLoading = true;
+    });
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text, // 3😍 Handle changes to a text field
-        password: passwordController.text, // 3😎 Handle changes to a text field       
+        password: passwordController.text, // 3😎 Handle changes to a text field
       );
-       showSnackBar(context, 'Done ...');
+      // showSnackBar(context, 'Done ...');
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        // print('No user found for that email.');
-        showSnackBar(context, 'No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        // print('Wrong password provided for that user.');
-        showSnackBar(context, 'Wrong password provided for that user.');
-      }
+      showSnackBar(context, 'ERROR ..... : ${e.code}');
     }
+    setState(() {
+      IsLoading = false;
+    });
   }
 
   // 4😎 Handle changes to a text field
@@ -63,10 +65,14 @@ class _LoginState extends State<Login> {
                         emailController, // 2😎 Handle changes to a text field
                     keyboardType:
                         TextInputType.emailAddress, // shape of keyboard
-                    obscureText: false, // text not password ***
+                    obscureText:false ,
                     //copyWith(hintText: "Enter Your Passaword",) to add a new "ميزة"
                     decoration: decorationTextField.copyWith(
-                        hintText: "Enter Your Email")),
+                        hintText: "Enter Your Email" ,
+                        suffixIcon: Icon(
+                        Icons.email,
+                          ),
+                        )),
                 const SizedBox(
                   height: 33,
                 ),
@@ -74,31 +80,38 @@ class _LoginState extends State<Login> {
                     controller:
                         passwordController, // 2😎 Handle changes to a text field
                     keyboardType: TextInputType.text, // shape of keyboard
-                    obscureText: true, // text not password ***
+                    obscureText:  IsVisibility_password
+                            ? false
+                            : true, // text not password ***, // text not password ***
                     decoration: decorationTextField.copyWith(
                       hintText: "Enter Your Passaword",
+                      suffixIcon: IconButton(
+                      icon: IsVisibility_password
+                                ? Icon(Icons.visibility)
+                                : Icon(Icons.visibility_off),
+                            onPressed: () {
+                              setState(() {
+                                IsVisibility_password = !IsVisibility_password;
+                              });
+                            },
+                          ),
                     )),
                 const SizedBox(
                   height: 33,
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                      await signIn(); // await to wait finish it first then showSnackBar()                  
+                    await signIn(); // await to wait finish it first then showSnackBar()
 
 // we use it in main to make user go to Home_page automatically when login
-                      // if (!mounted) return; // this good for performance  //  "https://dart-lang.github.io/linter/lints/use_build_context_synchronously.html"
-                      // //Navigate to a new screen and back "Login" without routes
-                      // Navigator.pushReplacement(
-                      //   // we dont use "push" we use pushReplacement to make pop "delete" for login stack automatically
-                      //   context,
-                      //   MaterialPageRoute(builder: (context) => Home()),
-                      // );
-
-
-
-
+                    // if (!mounted) return; // this good for performance  //  "https://dart-lang.github.io/linter/lints/use_build_context_synchronously.html"
+                    // //Navigate to a new screen and back "Login" without routes
+                    // Navigator.pushReplacement(
+                    //   // we dont use "push" we use pushReplacement to make pop "delete" for login stack automatically
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => Home()),
+                    // );
                   },
-
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(BTNgreen),
                     padding:
@@ -127,8 +140,13 @@ class _LoginState extends State<Login> {
                           MaterialPageRoute(builder: (context) => Register()),
                         );
                       },
-                      child: const Text('Sign up',
-                          style: TextStyle(color: Colors.black, fontSize: 20)),
+                      child: IsLoading
+                          ? const CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : const Text('Sign up',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20)),
                     )
                   ],
                 )

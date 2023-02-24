@@ -350,9 +350,8 @@ class _RegisterState extends State<Register> {
                       // child: const Text("Register",style: TextStyle(fontSize: 19),  ), // false
                       // child: CircularProgressIndicator(color: Colors.white,), // to make ⏱ Loadin_shape // true
                       child: IsLoading
-                          ? CircularProgressIndicator(
-                              color:
-                                  isPassword8Char ? Colors.green : Colors.white,
+                          ? const CircularProgressIndicator(
+                              color: Colors.white,
                             )
                           : const Text(
                               "Register",

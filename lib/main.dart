@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: MaterialApp(
-          home: StreamBuilder(      // to chick if user make login on this mobile go to home automatically else must make register
+          home: StreamBuilder(      // to connect to firebase & to chick if user make login on this mobile go to home automatically else must make register
             stream: FirebaseAuth.instance.authStateChanges(), // to connect to firebase
             builder: (context, snapshot) {  // to make chick   // snapshot like screenshot
               if (snapshot.connectionState == ConnectionState.waiting) {
