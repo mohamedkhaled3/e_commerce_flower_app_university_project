@@ -52,7 +52,7 @@ class _RegisterState extends State<Register> {
     });
   }
 
-  // 4😎 Handle changes to a text field
+  // 4😍 Handle changes to a text field
 //stop listening when the widget is deleted."increase preformance" &&  use only StatefulWidget
   @override
   void dispose() {
@@ -97,293 +97,298 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 247, 247, 247),
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(22),
-            child: SingleChildScrollView(
-              child: Form(
-                //😉😉 to make validation when data it wrong "not valid " dont send to firebase
-                key:
-                    _formKey, //😉😉 to make validation when data it wrong "not valid " dont send to firebase
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    TextField(
-                        keyboardType:
-                            TextInputType.emailAddress, // shape of keyboard
-                        obscureText: false, // text not password ***
-                        //copyWith(hintText: "Enter Your Passaword",) to add a new "ميزة"
-                        decoration: decorationTextField.copyWith(
-                          hintText: "Enter Your User Name :",
-                          suffixIcon: Icon(
-                            Icons.person,
-                          ), // "suffixIcon" in right of texstfield
-                        )),
-                    const SizedBox(
-                      height: 33,
-                    ),
-                    TextFormField(
-                        // we use it rather than textField bec. contains validator:..
-                        validator: (email) {
-                          // "value" is value of textField
-                          // we return "null" when something is valid && null mean that 👍
+    return Scaffold(
+            appBar: AppBar(
+      title: Text("Register"),
+      elevation: 0,
+      backgroundColor: appbarGreen,
+    ),
+      backgroundColor: const Color.fromARGB(255, 247, 247, 247),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(22),
+          child: SingleChildScrollView(
+            child: Form(
+              //😉😉 to make validation when data it wrong "not valid " dont send to firebase
+              key:
+                  _formKey, //😉😉 to make validation when data it wrong "not valid " dont send to firebase
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  TextField(
+                      keyboardType:
+                          TextInputType.emailAddress, // shape of keyboard
+                      obscureText: false, // text not password ***
+                      //copyWith(hintText: "Enter Your Passaword",) to add a new "ميزة"
+                      decoration: decorationTextField.copyWith(
+                        hintText: "Enter Your User Name :",
+                        suffixIcon: Icon(
+                          Icons.person,
+                        ), // "suffixIcon" in right of texstfield
+                      )),
+                  const SizedBox(
+                    height: 33,
+                  ),
+                  TextFormField(
+                      // we use it rather than textField bec. contains validator:..
+                      validator: (email) {
+                        // "value" is value of textField
+                        // we return "null" when something is valid && null mean that 👍
 
-                          // return value != null && !EmailValidator.validate(email)? "Enter a valid email": null; // 🥱🥱 we use regular ex rather than it
-                          // .contain() "is true OR false"
-                          return email!.contains(RegExp(
-                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"))
-                              ? null
-                              : "Enter a valid email"; // 🥱🥱
-                        },
-                        //copyWith(hintText: "Enter Your Passaword",) to add a new "ميزة"
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        controller: emailController,  //2 😍 Handle changes to a text field
-                        keyboardType: TextInputType.emailAddress,
-                        obscureText: false,
-                        decoration: decorationTextField.copyWith(
-                          hintText: "Enter Your Email : ",
-                          suffixIcon: Icon(
-                            Icons.email,
-                          ), // "suffixIcon" in right of texstfield
-                        )),
-                    const SizedBox(
-                      height: 33,
-                    ),
-                    TextFormField(
-                        onChanged: (password) {
-                          onPasswordChanged(password);
-                        },
-                        // we use it rather than textField bec. contains validator:..
-                        validator: (password) {
-                          // "value" is value of textField
-                          // we return "null" when value > 8  && null mean that 👍
-                          return password!.length < 8
-                              ? "Enter at least 8 character"
-                              : null;
-                        }, // we see it below the textfield if it not validate
-                        autovalidateMode: AutovalidateMode
-                            .onUserInteraction, // to see that email vailed automatically or not when user write it
-                        controller:
-                            passwordController, // 2😍 Handle changes to a text field
-                        keyboardType: TextInputType.text, // shape of keyboard
-                        obscureText: IsVisibility_password
-                            ? false
-                            : true, // text password ***
-                        decoration: decorationTextField.copyWith(
-                          hintText: "Enter Your Password",
-                          suffixIcon: IconButton(
-                            icon: IsVisibility_password
-                                ? Icon(Icons.visibility)
-                                : Icon(Icons.visibility_off),
-                            onPressed: () {
-                              setState(() {
-                                IsVisibility_password = !IsVisibility_password;
-                              });
-                            },
-                          ), // "suffixIcon" in right of texstfield
-                        )),
-                    const SizedBox(
-                      height: 11,
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          height: 20,
-                          width: 20,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color:
-                                isPassword8Char ? Colors.green : Colors.white,
-                            border: Border.all(color: Colors.grey.shade400),
-                          ),
-                          child:  Icon(
-                            Icons.check,
-                            color:
-                                isPassword8Char ? Colors.green : Colors.white,
-                            size: 15,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 11,
-                        ),
-                        const Text("At least 8 characters"),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 11,
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          height: 20,
-                          width: 20,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color:
-                                hasDigits ? Colors.green : Colors.white,
-                            border: Border.all(color: Colors.grey.shade400),
-                          ),
-                          child:  Icon(
-                            Icons.check,
-                            color:
-                                hasDigits ? Colors.green : Colors.white,
-                            size: 15,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 11,
-                        ),
-                        const Text("At least 1 number"),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 11,
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          height: 20,
-                          width: 20,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color:
-                                hasUppercase ? Colors.green : Colors.white,
-                            border: Border.all(color: Colors.grey.shade400),
-                          ),
-                          child:  Icon(
-                            Icons.check,
-                            color:
-                                hasUppercase ? Colors.green : Colors.white,
-                            size: 15,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 11,
-                        ),
-                        const Text("Has Uppercase"),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 11,
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          height: 20,
-                          width: 20,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color:
-                                hasLowercase ? Colors.green : Colors.white,
-                            border: Border.all(color: Colors.grey.shade400),
-                          ),
-                          child:  Icon(
-                            Icons.check,
-                            color:
-                                hasLowercase ? Colors.green : Colors.white,
-                            size: 15,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 11,
-                        ),
-                        const Text("Has Lowercase"),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 11,
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          height: 20,
-                          width: 20,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color:
-                                hasSpecialCharacters ? Colors.green : Colors.white,
-                            border: Border.all(color: Colors.grey.shade400),
-                          ),
-                          child:  Icon(
-                            Icons.check,
-                            color:
-                                hasSpecialCharacters ? Colors.green : Colors.white,
-                            size: 15,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 11,
-                        ),
-                        const Text("Has Special Characters"),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 33,
-                    ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                         await register();  // await to wait finish it first then showSnackBar()               
-                          if (!mounted) return;   // this good for performance "https://dart-lang.github.io/linter/lints/use_build_context_synchronously.html"
-                             //Navigate to a new screen and back "Login" without routes
-                            Navigator.pushReplacement(
-                              // we dont use "push" we use pushReplacement to make pop "delete" for login stack automatically
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>  Login()),
-                            );
-
-                        } else {
-                          showSnackBar(context, "ERROR");
-                        } //😉😉 to make validation when data it wrong "not valid " dont send to firebase && and give us "showSnackBar (ERROR)"
+                        // return value != null && !EmailValidator.validate(email)? "Enter a valid email": null; // 🥱🥱 we use regular ex rather than it
+                        // .contain() "is true OR false"
+                        return email!.contains(RegExp(
+                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"))
+                            ? null
+                            : "Enter a valid email"; // 🥱🥱
                       },
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(BTNgreen),
-                        padding:
-                            MaterialStateProperty.all(const EdgeInsets.all(12)),
-                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8))),
-                      ),
-                      // child: const Text("Register",style: TextStyle(fontSize: 19),  ), // false
-                      // child: CircularProgressIndicator(color: Colors.white,), // to make ⏱ Loadin_shape // true
-                      child: IsLoading
-                          ? const CircularProgressIndicator(
-                              color: Colors.white,
-                            )
-                          : const Text(
-                              "Register",
-                              style: TextStyle(fontSize: 19),
-                            ),
-                    ),
-                    const SizedBox(
-                      height: 33,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text("Do nor have an account?",
-                            style: TextStyle(fontSize: 20)),
-                        TextButton(
+                      //copyWith(hintText: "Enter Your Passaword",) to add a new "ميزة"
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      controller: emailController,  //2😍 Handle changes to a text field
+                      keyboardType: TextInputType.emailAddress,
+                      obscureText: false,
+                      decoration: decorationTextField.copyWith(
+                        hintText: "Enter Your Email : ",
+                        suffixIcon: Icon(
+                          Icons.email,
+                        ), // "suffixIcon" in right of texstfield
+                      )),
+                  const SizedBox(
+                    height: 33,
+                  ),
+                  TextFormField(
+                      onChanged: (password) {
+                        onPasswordChanged(password);
+                      },
+                      // we use it rather than textField bec. contains validator:..
+                      validator: (password) {
+                        // "value" is value of textField
+                        // we return "null" when value > 8  && null mean that 👍
+                        return password!.length < 8
+                            ? "Enter at least 8 character"
+                            : null;
+                      }, // we see it below the textfield if it not validate
+                      autovalidateMode: AutovalidateMode
+                          .onUserInteraction, // to see that email vailed automatically or not when user write it
+                      controller:
+                          passwordController, // 2😍 Handle changes to a text field
+                      keyboardType: TextInputType.text, // shape of keyboard
+                      obscureText: IsVisibility_password
+                          ? false
+                          : true, // text password ***
+                      decoration: decorationTextField.copyWith(
+                        hintText: "Enter Your Password",
+                        suffixIcon: IconButton(
+                          icon: IsVisibility_password
+                              ? Icon(Icons.visibility)
+                              : Icon(Icons.visibility_off),
                           onPressed: () {
-                            //Navigate to a new screen and back "Login" without routes
-                            Navigator.pushReplacement(
-                              // we dont use "push" we use pushReplacement to make pop "delete" for login stack automatically
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>  Login()),
-                            );
+                            setState(() {
+                              IsVisibility_password = !IsVisibility_password;
+                            });
                           },
-                          child: const Text('Sign in',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 20)),
-                        )
-                      ],
-                    )
-                  ],
-                ),
+                        ), // "suffixIcon" in right of texstfield
+                      )),
+                  const SizedBox(
+                    height: 11,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        height: 20,
+                        width: 20,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color:
+                              isPassword8Char ? Colors.green : Colors.white,
+                          border: Border.all(color: Colors.grey.shade400),
+                        ),
+                        child:  Icon(
+                          Icons.check,
+                          color:
+                              isPassword8Char ? Colors.green : Colors.white,
+                          size: 15,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 11,
+                      ),
+                      const Text("At least 8 characters"),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 11,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        height: 20,
+                        width: 20,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color:
+                              hasDigits ? Colors.green : Colors.white,
+                          border: Border.all(color: Colors.grey.shade400),
+                        ),
+                        child:  Icon(
+                          Icons.check,
+                          color:
+                              hasDigits ? Colors.green : Colors.white,
+                          size: 15,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 11,
+                      ),
+                      const Text("At least 1 number"),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 11,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        height: 20,
+                        width: 20,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color:
+                              hasUppercase ? Colors.green : Colors.white,
+                          border: Border.all(color: Colors.grey.shade400),
+                        ),
+                        child:  Icon(
+                          Icons.check,
+                          color:
+                              hasUppercase ? Colors.green : Colors.white,
+                          size: 15,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 11,
+                      ),
+                      const Text("Has Uppercase"),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 11,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        height: 20,
+                        width: 20,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color:
+                              hasLowercase ? Colors.green : Colors.white,
+                          border: Border.all(color: Colors.grey.shade400),
+                        ),
+                        child:  Icon(
+                          Icons.check,
+                          color:
+                              hasLowercase ? Colors.green : Colors.white,
+                          size: 15,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 11,
+                      ),
+                      const Text("Has Lowercase"),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 11,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        height: 20,
+                        width: 20,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color:
+                              hasSpecialCharacters ? Colors.green : Colors.white,
+                          border: Border.all(color: Colors.grey.shade400),
+                        ),
+                        child:  Icon(
+                          Icons.check,
+                          color:
+                              hasSpecialCharacters ? Colors.green : Colors.white,
+                          size: 15,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 11,
+                      ),
+                      const Text("Has Special Characters"),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 33,
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                       await register();  // await to wait finish it first then showSnackBar()               
+                        if (!mounted) return;   // this good for performance "https://dart-lang.github.io/linter/lints/use_build_context_synchronously.html"
+                           //Navigate to a new screen and back "Login" without routes
+                          Navigator.pushReplacement(
+                            // we dont use "push" we use pushReplacement to make pop "delete" for login stack automatically
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>  Login()),
+                          );
+
+                      } else {
+                        showSnackBar(context, "ERROR");
+                      } //😉😉 to make validation when data it wrong "not valid " dont send to firebase && and give us "showSnackBar (ERROR)"
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(BTNgreen),
+                      padding:
+                          MaterialStateProperty.all(const EdgeInsets.all(12)),
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8))),
+                    ),
+                    // child: const Text("Register",style: TextStyle(fontSize: 19),  ), // false
+                    // child: CircularProgressIndicator(color: Colors.white,), // to make ⏱ Loadin_shape // true
+                    child: IsLoading
+                        ? const CircularProgressIndicator(
+                            color: Colors.white,
+                          )
+                        : const Text(
+                            "Register",
+                            style: TextStyle(fontSize: 19),
+                          ),
+                  ),
+                  const SizedBox(
+                    height: 33,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Do nor have an account?",
+                          style: TextStyle(fontSize: 20)),
+                      TextButton(
+                        onPressed: () {
+                          //Navigate to a new screen and back "Login" without routes
+                          Navigator.pushReplacement(
+                            // we dont use "push" we use pushReplacement to make pop "delete" for login stack automatically
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>  Login()),
+                          );
+                        },
+                        child: const Text('Sign in',
+                            style:
+                                TextStyle( fontSize: 20,
+                                decoration: TextDecoration.underline
+                                )),
+                      )
+                    ],
+                  )
+                ],
               ),
             ),
           ),
