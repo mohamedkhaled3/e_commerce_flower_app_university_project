@@ -1,4 +1,5 @@
 import 'package:e_commerce_flower_app_university_project/model/item.dart';
+import 'package:e_commerce_flower_app_university_project/screens/VerifyEmail.dart';
 import 'package:e_commerce_flower_app_university_project/screens/checkout.dart';
 import 'package:e_commerce_flower_app_university_project/screens/details_screen.dart';
 import 'package:e_commerce_flower_app_university_project/screens/home.dart';
@@ -31,18 +32,23 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: MaterialApp(
-          home: StreamBuilder(      // to connect to firebase & to chick if user make login on this mobile go to home automatically else must make register
-            stream: FirebaseAuth.instance.authStateChanges(), // to connect to firebase
-            builder: (context, snapshot) {  // to make chick   // snapshot like screenshot
+          home: StreamBuilder(
+            // to connect to firebase & to chick if user make login on this mobile go to "VerifyEmailPage" automatically else must make register
+            stream: FirebaseAuth.instance
+                .authStateChanges(), // to connect to firebase
+            builder: (context, snapshot) {
+              // to make chick   // snapshot like screenshot
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
                     child: CircularProgressIndicator(
                   color: Colors.white,
                 ));
-              } else if (snapshot.hasError) { // not go to home
+              } else if (snapshot.hasError) {
+                // not go to home
                 return showSnackBar(context, "Something went wrong");
-              } else if (snapshot.hasData) {  //  go to home
-                return Home();
+              } else if (snapshot.hasData) {                
+                //  go to VerifyEmailPage
+                return VerifyEmailPage();
               } else {
                 return Login();
               }
