@@ -1,4 +1,4 @@
-import 'package:e_commerce_flower_app_university_project/screens/login.dart';
+import 'package:e_commerce_flower_app_university_project/screens/SignIn.dart';
 import 'package:e_commerce_flower_app_university_project/shared/colors.dart';
 import 'package:e_commerce_flower_app_university_project/shared/constants.dart';
 import 'package:e_commerce_flower_app_university_project/shared/snackbar.dart';
@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // import 'package:email_validator/email_validator.dart'; // 🥱🥱
 
-class Register extends StatefulWidget {
+class Register extends StatefulWidget { 
   Register({super.key});
 
   @override
@@ -99,7 +99,7 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
             appBar: AppBar(
-      title: Text("Register"),
+      title: Text("Register (Sign Up) "),
       elevation: 0,
       backgroundColor: appbarGreen,
     ),
