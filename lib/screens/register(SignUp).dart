@@ -1,3 +1,4 @@
+import 'package:e_commerce_flower_app_university_project/provider/google_signin.dart';
 import 'package:e_commerce_flower_app_university_project/screens/SignIn.dart';
 import 'package:e_commerce_flower_app_university_project/shared/colors.dart';
 import 'package:e_commerce_flower_app_university_project/shared/constants.dart';
@@ -6,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // import 'package:email_validator/email_validator.dart'; // 🥱🥱
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class Register extends StatefulWidget {
   Register({super.key});
@@ -96,6 +98,8 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
+          final googleSignInProvider =
+      Provider.of<GoogleSignInProvider>(context); // Cart is 😍😍 2 provider
     return Scaffold(
       appBar: AppBar(
         title: Text("Register (Sign Up) "),
@@ -430,7 +434,9 @@ SizedBox(
                               width: 22,
                             ),
                             GestureDetector(
-                                  onTap: (){      },
+                                  onTap: (){   
+                                    googleSignInProvider.googlelogin();
+                                     },
                               child: Container(
                                 padding: EdgeInsets.all(13),
                                 decoration: BoxDecoration(
