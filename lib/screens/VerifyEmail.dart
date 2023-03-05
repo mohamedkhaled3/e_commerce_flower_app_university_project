@@ -116,7 +116,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                       FirebaseAuth.instance.signOut();
                     },
                     child: Text(
-                      "Cansel",
+                      "Cancel",
                       style: TextStyle(fontSize: 20),
                     ),
                   ),

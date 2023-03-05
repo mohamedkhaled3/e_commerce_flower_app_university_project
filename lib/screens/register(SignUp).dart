@@ -5,8 +5,9 @@ import 'package:e_commerce_flower_app_university_project/shared/snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // import 'package:email_validator/email_validator.dart'; // 🥱🥱
+import 'package:flutter_svg/flutter_svg.dart';
 
-class Register extends StatefulWidget { 
+class Register extends StatefulWidget {
   Register({super.key});
 
   @override
@@ -61,33 +62,31 @@ class _RegisterState extends State<Register> {
     super.dispose();
   }
 
-  bool hasUppercase  = false;
-  bool hasDigits  = false;
-  bool hasLowercase  = false;
-  bool hasSpecialCharacters  = false;
+  bool hasUppercase = false;
+  bool hasDigits = false;
+  bool hasLowercase = false;
+  bool hasSpecialCharacters = false;
   bool isPassword8Char = false;
 
-
-
   onPasswordChanged(password) {
-   hasUppercase  = false;
-   hasDigits  = false;
-   hasLowercase  = false;
-   hasSpecialCharacters  = false;
-   isPassword8Char = false;
+    hasUppercase = false;
+    hasDigits = false;
+    hasLowercase = false;
+    hasSpecialCharacters = false;
+    isPassword8Char = false;
 
     setState(() {
       if (password.contains(RegExp(r'[A-Z]'))) {
-        hasUppercase  = true;
+        hasUppercase = true;
       }
       if (password.contains(RegExp(r'[0-9]'))) {
-        hasDigits  = true;
+        hasDigits = true;
       }
       if (password.contains(RegExp(r'[a-z]'))) {
-        hasLowercase  = true;
+        hasLowercase = true;
       }
       if (password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-        hasSpecialCharacters  = true;
+        hasSpecialCharacters = true;
       }
       if (password.contains(RegExp(r'.{8,}'))) {
         isPassword8Char = true;
@@ -98,11 +97,11 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-            appBar: AppBar(
-      title: Text("Register (Sign Up) "),
-      elevation: 0,
-      backgroundColor: appbarGreen,
-    ),
+      appBar: AppBar(
+        title: Text("Register (Sign Up) "),
+        elevation: 0,
+        backgroundColor: appbarGreen,
+      ),
       backgroundColor: const Color.fromARGB(255, 247, 247, 247),
       body: Center(
         child: Padding(
@@ -144,7 +143,8 @@ class _RegisterState extends State<Register> {
                       },
                       //copyWith(hintText: "Enter Your Passaword",) to add a new "ميزة"
                       autovalidateMode: AutovalidateMode.onUserInteraction,
-                      controller: emailController,  //2😍 Handle changes to a text field
+                      controller:
+                          emailController, //2😍 Handle changes to a text field
                       keyboardType: TextInputType.emailAddress,
                       obscureText: false,
                       decoration: decorationTextField.copyWith(
@@ -199,14 +199,12 @@ class _RegisterState extends State<Register> {
                         width: 20,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color:
-                              isPassword8Char ? Colors.green : Colors.white,
+                          color: isPassword8Char ? Colors.green : Colors.white,
                           border: Border.all(color: Colors.grey.shade400),
                         ),
-                        child:  Icon(
+                        child: Icon(
                           Icons.check,
-                          color:
-                              isPassword8Char ? Colors.green : Colors.white,
+                          color: isPassword8Char ? Colors.green : Colors.white,
                           size: 15,
                         ),
                       ),
@@ -226,14 +224,12 @@ class _RegisterState extends State<Register> {
                         width: 20,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color:
-                              hasDigits ? Colors.green : Colors.white,
+                          color: hasDigits ? Colors.green : Colors.white,
                           border: Border.all(color: Colors.grey.shade400),
                         ),
-                        child:  Icon(
+                        child: Icon(
                           Icons.check,
-                          color:
-                              hasDigits ? Colors.green : Colors.white,
+                          color: hasDigits ? Colors.green : Colors.white,
                           size: 15,
                         ),
                       ),
@@ -253,14 +249,12 @@ class _RegisterState extends State<Register> {
                         width: 20,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color:
-                              hasUppercase ? Colors.green : Colors.white,
+                          color: hasUppercase ? Colors.green : Colors.white,
                           border: Border.all(color: Colors.grey.shade400),
                         ),
-                        child:  Icon(
+                        child: Icon(
                           Icons.check,
-                          color:
-                              hasUppercase ? Colors.green : Colors.white,
+                          color: hasUppercase ? Colors.green : Colors.white,
                           size: 15,
                         ),
                       ),
@@ -280,14 +274,12 @@ class _RegisterState extends State<Register> {
                         width: 20,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color:
-                              hasLowercase ? Colors.green : Colors.white,
+                          color: hasLowercase ? Colors.green : Colors.white,
                           border: Border.all(color: Colors.grey.shade400),
                         ),
-                        child:  Icon(
+                        child: Icon(
                           Icons.check,
-                          color:
-                              hasLowercase ? Colors.green : Colors.white,
+                          color: hasLowercase ? Colors.green : Colors.white,
                           size: 15,
                         ),
                       ),
@@ -307,14 +299,16 @@ class _RegisterState extends State<Register> {
                         width: 20,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color:
-                              hasSpecialCharacters ? Colors.green : Colors.white,
+                          color: hasSpecialCharacters
+                              ? Colors.green
+                              : Colors.white,
                           border: Border.all(color: Colors.grey.shade400),
                         ),
-                        child:  Icon(
+                        child: Icon(
                           Icons.check,
-                          color:
-                              hasSpecialCharacters ? Colors.green : Colors.white,
+                          color: hasSpecialCharacters
+                              ? Colors.green
+                              : Colors.white,
                           size: 15,
                         ),
                       ),
@@ -330,16 +324,15 @@ class _RegisterState extends State<Register> {
                   ElevatedButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                       await register();  // await to wait finish it first then showSnackBar()               
-                        if (!mounted) return;   // this good for performance "https://dart-lang.github.io/linter/lints/use_build_context_synchronously.html"
-                           //Navigate to a new screen and back "Login" without routes
-                          Navigator.pushReplacement(
-                            // we dont use "push" we use pushReplacement to make pop "delete" for login stack automatically
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>  Login()),
-                          );
-
+                        await register(); // await to wait finish it first then showSnackBar()
+                        if (!mounted)
+                          return; // this good for performance "https://dart-lang.github.io/linter/lints/use_build_context_synchronously.html"
+                        //Navigate to a new screen and back "Login" without routes
+                        Navigator.pushReplacement(
+                          // we dont use "push" we use pushReplacement to make pop "delete" for login stack automatically
+                          context,
+                          MaterialPageRoute(builder: (context) => Login()),
+                        );
                       } else {
                         showSnackBar(context, "ERROR");
                       } //😉😉 to make validation when data it wrong "not valid " dont send to firebase && and give us "showSnackBar (ERROR)"
@@ -376,18 +369,105 @@ class _RegisterState extends State<Register> {
                           Navigator.pushReplacement(
                             // we dont use "push" we use pushReplacement to make pop "delete" for login stack automatically
                             context,
-                            MaterialPageRoute(
-                                builder: (context) =>  Login()),
+                            MaterialPageRoute(builder: (context) => Login()),
                           );
                         },
                         child: const Text('Sign in',
-                            style:
-                                TextStyle( fontSize: 20,
-                                decoration: TextDecoration.underline
-                                )),
-                      )
+                            style: TextStyle(
+                                fontSize: 20,
+                                decoration: TextDecoration.underline)),
+                      ),
                     ],
-                  )
+                  ),              
+          
+SizedBox(
+                        height: 17,
+                      ),
+                                            SizedBox(
+                        width: 299,
+                        child: Row(
+                          children: [
+                            Expanded(
+                                child: Divider(
+                              thickness: 0.6,
+                              color: Colors.purple[900],
+                            )),
+                            Text(
+                              "OR",
+                              style: TextStyle(
+                                color: Colors.purple[900],
+                              ),
+                            ),
+                            Expanded(
+                                child: Divider(
+                              thickness: 0.6,
+                              color: Colors.purple[900],
+                            )),
+                          ],
+                        ),
+                      ),
+                                            Container(
+                        margin: EdgeInsets.symmetric(vertical: 27),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: (){      },
+                              child: Container(
+                                padding: EdgeInsets.all(13),
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border:
+                                        Border.all(color: Colors.purple, width: 1)),
+                                child: SvgPicture.asset(
+                                  "assets/icons/facebook.svg",
+                                  color: Colors.purple[400],
+                                  height: 27,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 22,
+                            ),
+                            GestureDetector(
+                                  onTap: (){      },
+                              child: Container(
+                                padding: EdgeInsets.all(13),
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border:
+                                        Border.all(color: Colors.purple, width: 1)),
+                                child: SvgPicture.asset(
+                                  "assets/icons/google-plus.svg",
+                                  color: Colors.purple[400],
+                                  height: 27,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 22,
+                            ),
+                            GestureDetector(
+                              onTap: (){      },
+                              child: Container(
+                                padding: EdgeInsets.all(13),
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border:
+                                        Border.all(color: Colors.purple, width: 1)),
+                                child: SvgPicture.asset(
+                                  "assets/icons/twitter.svg",
+                                  color: Colors.purple[400],
+                                  height: 27,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+
+
                 ],
               ),
             ),
