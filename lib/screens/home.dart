@@ -12,8 +12,10 @@ class Home extends StatelessWidget {
   const Home({super.key});
   @override
   Widget build(BuildContext context) {
-    final classInstance =
-        Provider.of<Cart>(context); // Cart is 😍😍 2 provider
+    final classInstance = Provider.of<Cart>(context); // Cart is 😍😍 2 provider
+    final userData = FirebaseAuth.instance
+        .currentUser!; // to get data when login with "google or facebok or twitter"
+        
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 22),
@@ -95,7 +97,7 @@ class Home extends StatelessWidget {
 
             Column(
               children: [
-                const UserAccountsDrawerHeader(
+                 UserAccountsDrawerHeader(
                   // to make background image "flower image"
                   decoration: BoxDecoration(
                     image: DecorationImage(
@@ -104,20 +106,25 @@ class Home extends StatelessWidget {
                             .cover), //"fit: BoxFit.cover" -- to make max size can take
                   ),
                   // to make text of accountName
-                  accountName: Text(
-                    "mohamed khaled",
+                  accountName: Text(           
+                     userData.displayName! ,
+                 //   "mohamed khaled",
                     style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                   ),
                   // to make text of accountEmail
                   accountEmail: Text(
-                    "mk1644@fayoum.edu.eg",
+                     userData.email!
+                    // "mk1644@fayoum.edu.eg",
+
                   ),
                   //
                   currentAccountPictureSize: Size.square(72.0),
                   // to make  CircleAvatar "circular image " or " profile image "
                   currentAccountPicture: CircleAvatar(
                     radius: 55,
-                    backgroundImage: AssetImage("assets/img/do_it.jpeg"),
+                    // backgroundImage: AssetImage("assets/img/do_it.jpeg"),
+                    backgroundImage: NetworkImage(userData.photoURL!),
+
                   ),
                 ),
                 ListTile(
@@ -171,7 +178,7 @@ class Home extends StatelessWidget {
         // ignore: prefer_const_literals_to_create_immutables
         actions: [
           // the end of AppBar  & "leading is start of AppBar"
-           const ProductsAndPrice(),
+          const ProductsAndPrice(),
         ],
       ),
     );
