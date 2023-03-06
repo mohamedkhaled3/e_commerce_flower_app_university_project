@@ -1,4 +1,5 @@
 import 'package:e_commerce_flower_app_university_project/model/item.dart';
+import 'package:e_commerce_flower_app_university_project/screens/ProfilePage.dart';
 import 'package:e_commerce_flower_app_university_project/screens/checkout.dart';
 import 'package:e_commerce_flower_app_university_project/screens/details_screen.dart';
 import 'package:e_commerce_flower_app_university_project/provider/cart.dart';
@@ -155,6 +156,17 @@ class Home extends StatelessWidget {
                     title: const Text("About"),
                     leading: const Icon(Icons.help_center),
                     onTap: () {}),
+                ListTile(
+                      title: Text("Profile Page"),
+                      leading: Icon(Icons.person),
+                      onTap: () {
+                        Navigator.push( //" Navigator.push" to when click to "👈" in home go to ProfilePage
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProfilePage(),
+                          ),
+                        );
+                      }),
                 ListTile(
                     title: const Text("Logout"),
                     leading: const Icon(Icons.exit_to_app),

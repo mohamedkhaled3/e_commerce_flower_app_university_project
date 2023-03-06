@@ -129,8 +129,26 @@ class _RegisterState extends State<Register> {
                           Icons.person,
                         ), // "suffixIcon" in right of texstfield
                       )),
+                     const SizedBox(
+                    height: 22,
+                  ),
+                  TextFormField(
+                      keyboardType: TextInputType.number,
+                      obscureText: false,
+                      decoration: decorationTextField.copyWith(
+                          hintText: "Enter Your age : ",
+                          suffixIcon: Icon(Icons.pest_control_rodent))),
                   const SizedBox(
-                    height: 33,
+                    height: 22,
+                  ),
+                  TextFormField(
+                      keyboardType: TextInputType.text,
+                      obscureText: false,
+                      decoration: decorationTextField.copyWith(
+                          hintText: "Enter Your title : ",
+                          suffixIcon: Icon(Icons.person_outline))),
+                  const SizedBox(
+                    height: 22,
                   ),
                   TextFormField(
                       // we use it rather than textField bec. contains validator:..
@@ -158,7 +176,7 @@ class _RegisterState extends State<Register> {
                         ), // "suffixIcon" in right of texstfield
                       )),
                   const SizedBox(
-                    height: 33,
+                    height: 22,
                   ),
                   TextFormField(
                       onChanged: (password) {
@@ -323,7 +341,7 @@ class _RegisterState extends State<Register> {
                     ],
                   ),
                   const SizedBox(
-                    height: 33,
+                    height: 22,
                   ),
                   ElevatedButton(
                     onPressed: () async {
@@ -360,7 +378,7 @@ class _RegisterState extends State<Register> {
                           ),
                   ),
                   const SizedBox(
-                    height: 33,
+                    height: 22,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

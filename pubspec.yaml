@@ -42,6 +42,7 @@ dependencies:
   # email_validator: ^2.1.17  // 🥱🥱 in "register_class"
   google_sign_in: ^6.0.2
   flutter_svg: ^2.0.2
+  cloud_firestore: ^4.4.3
                            
 
 
