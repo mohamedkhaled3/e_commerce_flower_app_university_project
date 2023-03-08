@@ -108,14 +108,14 @@ class Home extends StatelessWidget {
                   ),
                   // to make text of accountName
                   accountName: Text(           
-                     userData.displayName! ,
-                 //   "mohamed khaled",
+                   //  userData.displayName! ,
+                   "mohamed khaled",
                     style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                   ),
                   // to make text of accountEmail
                   accountEmail: Text(
-                     userData.email!
-                    // "mk1644@fayoum.edu.eg",
+                    //  userData.email!
+                     "mk1644@fayoum.edu.eg",
 
                   ),
                   //
