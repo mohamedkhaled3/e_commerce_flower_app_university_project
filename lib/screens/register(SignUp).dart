@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_flower_app_university_project/provider/google_signin.dart';
 import 'package:e_commerce_flower_app_university_project/screens/SignIn.dart';
 import 'package:e_commerce_flower_app_university_project/shared/colors.dart';
@@ -25,6 +26,12 @@ class _RegisterState extends State<Register> {
       TextEditingController(); // 1😍 Handle changes to a text field
   final passwordController =
       TextEditingController(); // 1😎 Handle changes to a text field
+  final userNameController =
+      TextEditingController(); // 1 Handle changes to a text field
+  final ageController =
+      TextEditingController(); // 1 Handle changes to a text field
+  final titleController =
+      TextEditingController(); // 1 Handle changes to a text field
 
   // لإنشاء حساب مستخدم جديد بكلمة مرور  by connection to firebase// 🥱🥱
   register() async {
@@ -37,6 +44,23 @@ class _RegisterState extends State<Register> {
         email: emailController.text, // 3😍 Handle changes to a text field
         password: passwordController.text, // 3😎 Handle changes to a text field
       );
+
+// to store data in firestore  to dds the new document to your collection "users"
+      CollectionReference users =
+          FirebaseFirestore.instance.collection('users');
+      users
+          .doc(credential.user!.uid) // to make document = id(token) ..
+          .set({
+            'userName':
+                userNameController.text, // 3 Handle changes to a text field
+            'age': ageController.text, // 3 Handle changes to a text field
+            'title': titleController.text, // 3 Handle changes to a text field
+            'email': emailController.text, // 3😍 Handle changes to a text field
+            'password':
+                passwordController.text, // 3😎 Handle changes to a text field
+          })
+          .then((value) => print("User Added"))
+          .catchError((error) => print("Failed to add user: $error")); // error
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         // print('The password provided is too weak.');
@@ -61,6 +85,9 @@ class _RegisterState extends State<Register> {
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    userNameController.dispose();
+    ageController.dispose();
+    titleController.dispose();
     super.dispose();
   }
 
@@ -98,8 +125,8 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-          final googleSignInProvider =
-      Provider.of<GoogleSignInProvider>(context); // Cart is 😍😍 2 provider
+    final googleSignInProvider =
+        Provider.of<GoogleSignInProvider>(context); // Cart is 😍😍 2 provider
     return Scaffold(
       appBar: AppBar(
         title: Text("Register (Sign Up) "),
@@ -119,6 +146,8 @@ class _RegisterState extends State<Register> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   TextField(
+                      controller:
+                          userNameController, // 2 Handle changes to a text field
                       keyboardType:
                           TextInputType.emailAddress, // shape of keyboard
                       obscureText: false, // text not password ***
@@ -129,10 +158,12 @@ class _RegisterState extends State<Register> {
                           Icons.person,
                         ), // "suffixIcon" in right of texstfield
                       )),
-                     const SizedBox(
+                  const SizedBox(
                     height: 22,
                   ),
                   TextFormField(
+                      controller:
+                          ageController, // 2 Handle changes to a text field
                       keyboardType: TextInputType.number,
                       obscureText: false,
                       decoration: decorationTextField.copyWith(
@@ -142,6 +173,8 @@ class _RegisterState extends State<Register> {
                     height: 22,
                   ),
                   TextFormField(
+                      controller:
+                          titleController, // 2😘 Handle changes to a text field
                       keyboardType: TextInputType.text,
                       obscureText: false,
                       decoration: decorationTextField.copyWith(
@@ -193,7 +226,7 @@ class _RegisterState extends State<Register> {
                       autovalidateMode: AutovalidateMode
                           .onUserInteraction, // to see that email vailed automatically or not when user write it
                       controller:
-                          passwordController, // 2😍 Handle changes to a text field
+                          passwordController, // 2😎 Handle changes to a text field
                       keyboardType: TextInputType.text, // shape of keyboard
                       obscureText: IsVisibility_password
                           ? false
@@ -400,98 +433,94 @@ class _RegisterState extends State<Register> {
                                 decoration: TextDecoration.underline)),
                       ),
                     ],
-                  ),              
-          
-SizedBox(
-                        height: 17,
-                      ),
-                                            SizedBox(
-                        width: 299,
-                        child: Row(
-                          children: [
-                            Expanded(
-                                child: Divider(
-                              thickness: 0.6,
-                              color: Colors.purple[900],
-                            )),
-                            Text(
-                              "OR",
-                              style: TextStyle(
-                                color: Colors.purple[900],
-                              ),
-                            ),
-                            Expanded(
-                                child: Divider(
-                              thickness: 0.6,
-                              color: Colors.purple[900],
-                            )),
-                          ],
+                  ),
+                  SizedBox(
+                    height: 17,
+                  ),
+                  SizedBox(
+                    width: 299,
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: Divider(
+                          thickness: 0.6,
+                          color: Colors.purple[900],
+                        )),
+                        Text(
+                          "OR",
+                          style: TextStyle(
+                            color: Colors.purple[900],
+                          ),
                         ),
-                      ),
-                                            Container(
-                        margin: EdgeInsets.symmetric(vertical: 27),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                              onTap: (){      },
-                              child: Container(
-                                padding: EdgeInsets.all(13),
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border:
-                                        Border.all(color: Colors.purple, width: 1)),
-                                child: SvgPicture.asset(
-                                  "assets/icons/facebook.svg",
-                                  color: Colors.purple[400],
-                                  height: 27,
-                                ),
-                              ),
+                        Expanded(
+                            child: Divider(
+                          thickness: 0.6,
+                          color: Colors.purple[900],
+                        )),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 27),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            padding: EdgeInsets.all(13),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border:
+                                    Border.all(color: Colors.purple, width: 1)),
+                            child: SvgPicture.asset(
+                              "assets/icons/facebook.svg",
+                              color: Colors.purple[400],
+                              height: 27,
                             ),
-                            SizedBox(
-                              width: 22,
-                            ),
-                            GestureDetector(
-                                  onTap: (){   
-                                    googleSignInProvider.googlelogin();
-                                     },
-                              child: Container(
-                                padding: EdgeInsets.all(13),
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border:
-                                        Border.all(color: Colors.purple, width: 1)),
-                                child: SvgPicture.asset(
-                                  "assets/icons/google-plus.svg",
-                                  color: Colors.purple[400],
-                                  height: 27,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 22,
-                            ),
-                            GestureDetector(
-                              onTap: (){      },
-                              child: Container(
-                                padding: EdgeInsets.all(13),
-                                decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    border:
-                                        Border.all(color: Colors.purple, width: 1)),
-                                child: SvgPicture.asset(
-                                  "assets/icons/twitter.svg",
-                                  color: Colors.purple[400],
-                                  height: 27,
-                                ),
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
-
-
-
+                        SizedBox(
+                          width: 22,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            googleSignInProvider.googlelogin();
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(13),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border:
+                                    Border.all(color: Colors.purple, width: 1)),
+                            child: SvgPicture.asset(
+                              "assets/icons/google-plus.svg",
+                              color: Colors.purple[400],
+                              height: 27,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 22,
+                        ),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            padding: EdgeInsets.all(13),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border:
+                                    Border.all(color: Colors.purple, width: 1)),
+                            child: SvgPicture.asset(
+                              "assets/icons/twitter.svg",
+                              color: Colors.purple[400],
+                              height: 27,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

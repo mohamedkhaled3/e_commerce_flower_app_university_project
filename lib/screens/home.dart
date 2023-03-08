@@ -123,8 +123,8 @@ class Home extends StatelessWidget {
                   // to make  CircleAvatar "circular image " or " profile image "
                   currentAccountPicture: CircleAvatar(
                     radius: 55,
-                    // backgroundImage: AssetImage("assets/img/do_it.jpeg"),
-                    backgroundImage: NetworkImage(userData.photoURL!),
+                     backgroundImage: AssetImage("assets/img/do_it.jpeg"),
+                   // backgroundImage: NetworkImage(userData.photoURL!),
 
                   ),
                 ),
