@@ -1,4 +1,5 @@
 
+import 'package:e_commerce_flower_app_university_project/shared/ReadDataFromFireStore.dart';
 import 'package:e_commerce_flower_app_university_project/shared/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -104,7 +105,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       style: TextStyle(
                         fontSize: 20,
                       ),
-                    ))),
+                    ),    
+                    ),
+                    ),
+                    ReadDataFromFireStore(documentId: credential!.uid,), // documentId:'user_Id(token)'
           ],
         ),
       ),
