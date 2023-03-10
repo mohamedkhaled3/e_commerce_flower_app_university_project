@@ -43,73 +43,75 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(22.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-                child: Container(
-              padding: EdgeInsets.all(11),
-              decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 131, 177, 255),
-                  borderRadius: BorderRadius.circular(11)),
-              child: Text(
-                "Info from firebase Auth",
-                style: TextStyle(
-                  fontSize: 22,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                  child: Container(
+                padding: EdgeInsets.all(11),
+                decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 131, 177, 255),
+                    borderRadius: BorderRadius.circular(11)),
+                child: Text(
+                  "Info from firebase Auth",
+                  style: TextStyle(
+                    fontSize: 22,
+                  ),
                 ),
+              )),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 11,
+                  ),
+                  Text(
+                    "Email: ${credential!.email}     ",
+                    style: TextStyle(
+                      fontSize: 17,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 11,
+                  ),
+                  Text(
+                    "Created date: ${DateFormat("MMMM d, y").format(credential!.metadata.creationTime!)}",  // to give first data of login
+                    style: TextStyle(
+                      fontSize: 17,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 11,
+                  ),
+                  Text(
+                    "Created date: ${DateFormat("MMMM d, y").format(credential!.metadata.lastSignInTime!)}", // to give last data of login
+                    style: TextStyle(
+                      fontSize: 17,
+                    ),
+                  ),
+                ],
               ),
-            )),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 11,
-                ),
-                Text(
-                  "Email: ${credential!.email}     ",
-                  style: TextStyle(
-                    fontSize: 17,
-                  ),
-                ),
-                SizedBox(
-                  height: 11,
-                ),
-                Text(
-                  "Created date: ${DateFormat("MMMM d, y").format(credential!.metadata.creationTime!)}",  // to give first data of login
-                  style: TextStyle(
-                    fontSize: 17,
-                  ),
-                ),
-                SizedBox(
-                  height: 11,
-                ),
-                Text(
-                  "Created date: ${DateFormat("MMMM d, y").format(credential!.metadata.lastSignInTime!)}", // to give last data of login
-                  style: TextStyle(
-                    fontSize: 17,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 55,
-            ),
-            Center(
-                child: Container(
-                    padding: EdgeInsets.all(11),
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 131, 177, 255),
-                        borderRadius: BorderRadius.circular(11)),
-                    child: Text(
-                      "Info from firebase firestore",
-                      style: TextStyle(
-                        fontSize: 20,
+              SizedBox(
+                height: 55,
+              ),
+              Center(
+                  child: Container(
+                      padding: EdgeInsets.all(11),
+                      decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 131, 177, 255),
+                          borderRadius: BorderRadius.circular(11)),
+                      child: Text(
+                        "Info from firebase firestore",
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),    
                       ),
-                    ),    
-                    ),
-                    ),
-                    ReadDataFromFireStore(documentId: credential!.uid,), // documentId:'user_Id(token)'
-          ],
+                      ),
+                      ReadDataFromFireStore(documentId: credential!.uid,), // documentId:'user_Id(token)'
+            ],
+          ),
         ),
       ),
     );

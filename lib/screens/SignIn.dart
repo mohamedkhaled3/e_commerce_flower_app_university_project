@@ -118,7 +118,7 @@ class _LoginState extends State<Login> {
                       return; // this good for performance  //  "https://dart-lang.github.io/linter/lints/use_build_context_synchronously.html"
                     // //Navigate to a new screen and back "Login" without routes
                     // Navigator.pushReplacement(
-                    //   // we dont use "push" we use pushReplacement to make pop "delete" for login stack automatically
+                    // //   // we dont use "push" we use pushReplacement to make pop "delete" for login stack automatically
                     //   context,
                     //   MaterialPageRoute(builder: (context) => Home()),
                     // );
