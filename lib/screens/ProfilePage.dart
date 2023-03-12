@@ -1,4 +1,4 @@
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_flower_app_university_project/shared/ReadDataFromFireStore.dart';
 import 'package:e_commerce_flower_app_university_project/shared/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,7 +13,9 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final credential = FirebaseAuth.instance.currentUser;
+  final credential =
+      FirebaseAuth.instance.currentUser; //credential is "currentUser"
+  CollectionReference users =  FirebaseFirestore.instance.collection('users');
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +78,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     height: 11,
                   ),
                   Text(
-                    "Created date: ${DateFormat("MMMM d, y").format(credential!.metadata.creationTime!)}",  // to give first data of login
+                    "Created date: ${DateFormat("MMMM d, y").format(credential!.metadata.creationTime!)}", // to give first data of login
                     style: TextStyle(
                       fontSize: 17,
                     ),
@@ -93,23 +95,47 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
               SizedBox(
-                height: 55,
+                height: 15,
               ),
               Center(
-                  child: Container(
-                      padding: EdgeInsets.all(11),
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 131, 177, 255),
-                          borderRadius: BorderRadius.circular(11)),
-                      child: Text(
-                        "Info from firebase firestore",
-                        style: TextStyle(
-                          fontSize: 20,
-                        ),
-                      ),    
-                      ),
-                      ),
-                      ReadDataFromFireStore(documentId: credential!.uid,), // documentId:'user_Id(token)'
+                child: TextButton(
+                  style: ButtonStyle(
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.blue),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      credential!.delete(); //Delete user [firebase auth]             
+                      users.doc(credential!.uid).delete(); //Delete a document [firestore]
+                      Navigator.pop(context); // to go to signin_screen
+                    });
+                  },
+                  child: Text(
+                    'Delete User',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Center(
+                child: Container(
+                  padding: EdgeInsets.all(11),
+                  decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 131, 177, 255),
+                      borderRadius: BorderRadius.circular(11)),
+                  child: Text(
+                    "Info from firebase firestore",
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ),
+              ReadDataFromFireStore(
+                documentId: credential!.uid,
+              ), // documentId:'user_Id(token)'
             ],
           ),
         ),

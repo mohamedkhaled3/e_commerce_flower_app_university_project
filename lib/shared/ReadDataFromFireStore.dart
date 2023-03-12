@@ -23,8 +23,9 @@ class _ReadDataFromFireStoreState extends State<ReadDataFromFireStore> {
     final credential = FirebaseAuth.instance.currentUser;
 
 // function that to make showDialog relation to firebase
-    myshowDialog(Map data, dynamic myKey) { // myKey = when click to edit_icon and in hintText   & data is map make relation to firebase
-      return showDialog(                    
+    myshowDialog(Map data, dynamic myKey) {
+      // myKey = when click to edit_icon and in hintText   & data is map make relation to firebase
+      return showDialog(
         context: context,
         builder: (BuildContext context) {
           return Dialog(
@@ -41,9 +42,7 @@ class _ReadDataFromFireStoreState extends State<ReadDataFromFireStore> {
                           dialogUserNameController, // 2 Handle changes to a text field
                       maxLength: 20,
                       decoration:
-                          InputDecoration(hintText: "${data['$myKey']}") 
-                          ), 
-
+                          InputDecoration(hintText: "${data['$myKey']}")),
                   SizedBox(
                     height: 22,
                   ),
@@ -112,14 +111,34 @@ class _ReadDataFromFireStoreState extends State<ReadDataFromFireStore> {
                 children: [
                   Text(
                     "Username: ${data["userName"]}",
-                    style: const TextStyle(fontSize: 17),
+                    style: const TextStyle(fontSize: 15),
                   ),
-                  IconButton(
-                    iconSize: 17,
-                    icon: const Icon(Icons.edit),
-                    onPressed: () {
-                      myshowDialog(data, 'userName');
-                    },
+                  Row(
+                    children: [
+                      IconButton(
+                        iconSize: 13,
+                        icon: const Icon(Icons.delete),
+                        onPressed: () {
+                          setState(() {
+                            users.doc(credential!.uid).update({
+                              "userName": FieldValue.delete()
+                            }); // key is info from firebase firestore (userName & age & title & ... )
+                          });
+                        },
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      IconButton(
+                        iconSize: 13,
+                        icon: const Icon(Icons.edit),
+                        onPressed: () {
+                          setState(() {
+                            myshowDialog(data, 'userName');
+                          });
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -131,14 +150,32 @@ class _ReadDataFromFireStoreState extends State<ReadDataFromFireStore> {
                 children: [
                   Text(
                     "age: ${data['age']} years old",
-                    style: const TextStyle(fontSize: 17),
+                    style: const TextStyle(fontSize: 15),
                   ),
-                  IconButton(
-                    iconSize: 17,
-                    icon: const Icon(Icons.edit),
-                    onPressed: () {
-                      myshowDialog(data, 'age');
-                    },
+                  Row(
+                    children: [
+                      IconButton(
+                        iconSize: 13,
+                        icon: const Icon(Icons.delete),
+                        onPressed: () {
+                          setState(() {
+                            users
+                                .doc(credential!.uid)
+                                .update({"age": FieldValue.delete()});
+                          });
+                        },
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      IconButton(
+                        iconSize: 13,
+                        icon: const Icon(Icons.edit),
+                        onPressed: () {
+                          myshowDialog(data, 'age');
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -150,14 +187,32 @@ class _ReadDataFromFireStoreState extends State<ReadDataFromFireStore> {
                 children: [
                   Text(
                     "email: ${data['email']}",
-                    style: const TextStyle(fontSize: 17),
+                    style: const TextStyle(fontSize: 15),
                   ),
-                  IconButton(
-                    iconSize: 17,
-                    icon: const Icon(Icons.edit),
-                    onPressed: () {
-                      myshowDialog(data, 'email');
-                    },
+                  Row(
+                    children: [
+                      IconButton(
+                        iconSize: 13,
+                        icon: const Icon(Icons.delete),
+                        onPressed: () {
+                          setState(() {
+                            users
+                                .doc(credential!.uid)
+                                .update({"email": FieldValue.delete()});
+                          });
+                        },
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      IconButton(
+                        iconSize: 13,
+                        icon: const Icon(Icons.edit),
+                        onPressed: () {
+                          myshowDialog(data, 'email');
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -169,14 +224,32 @@ class _ReadDataFromFireStoreState extends State<ReadDataFromFireStore> {
                 children: [
                   Text(
                     "password: ${data['password']}",
-                    style: const TextStyle(fontSize: 17),
+                    style: const TextStyle(fontSize: 15),
                   ),
-                  IconButton(
-                    iconSize: 17,
-                    icon: const Icon(Icons.edit),
-                    onPressed: () {
-                      myshowDialog(data, 'password');
-                    },
+                  Row(
+                    children: [
+                      IconButton(
+                        iconSize: 13,
+                        icon: const Icon(Icons.delete),
+                        onPressed: () {
+                          setState(() {
+                            users
+                                .doc(credential!.uid)
+                                .update({"password": FieldValue.delete()});
+                          });
+                        },
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      IconButton(
+                        iconSize: 13,
+                        icon: const Icon(Icons.edit),
+                        onPressed: () {
+                          myshowDialog(data, 'password');
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -188,17 +261,52 @@ class _ReadDataFromFireStoreState extends State<ReadDataFromFireStore> {
                 children: [
                   Text(
                     "title: ${data['title']}",
-                    style: const TextStyle(fontSize: 17),
+                    style: const TextStyle(fontSize: 15),
                   ),
-                  IconButton(
-                    iconSize: 17,
-                    icon: const Icon(Icons.edit),
-                    onPressed: () {
-                      myshowDialog(data, 'title');
-                    },
+                  Row(
+                    children: [
+                      IconButton(
+                        iconSize: 13,
+                        icon: const Icon(Icons.delete),
+                        onPressed: () {
+                          setState(() {
+                            users.doc(credential!.uid).update({
+                              "title": FieldValue.delete()
+                            }); // key is info from firebase firestore (userName & )
+                          });
+                        },
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      IconButton(
+                        iconSize: 13,
+                        icon: const Icon(Icons.edit),
+                        onPressed: () {
+                          myshowDialog(data, 'title');
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),
+              Center(
+                child: TextButton(
+                  style: ButtonStyle(
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.blue),
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      users.doc(credential!.uid).delete();
+                    });
+                  },
+                  child: Text(
+                    'Delete Data',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+              )
             ],
           );
         }
