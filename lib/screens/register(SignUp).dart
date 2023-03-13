@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 // import 'package:email_validator/email_validator.dart'; // 🥱🥱
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import 'package:image_picker/image_picker.dart';  // to can make use File as dataType
+import 'dart:io';  // to can make use File as dataType
 
 class Register extends StatefulWidget {
   Register({super.key});
@@ -32,6 +34,17 @@ class _RegisterState extends State<Register> {
       TextEditingController(); // 1 Handle changes to a text field
   final titleController =
       TextEditingController(); // 1 Handle changes to a text field
+  File? imgPath;
+
+// لرفع الصوره للشاشه تابعنا   Function to get img path
+    uploadImage2Screen() async {
+    final pickedImg = await ImagePicker().pickImage(source: ImageSource.gallery);  
+    try {
+      if (pickedImg != null) {
+        setState(() {imgPath = File(pickedImg.path);});
+    } else {print("NO img selected");}
+    } catch (e) {print("Error => $e");}
+      }
 
   // لإنشاء حساب مستخدم جديد بكلمة مرور  by connection to firebase// 🥱🥱
   register() async {
@@ -145,6 +158,54 @@ class _RegisterState extends State<Register> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+
+
+
+                  Container(
+                    padding: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color.fromARGB(125, 78, 91, 110),
+                    ),
+                    child: Stack(
+                      children: [
+                        imgPath == null
+                            ? CircleAvatar(
+                                backgroundColor:
+                                    Color.fromARGB(255, 225, 225, 225),
+                                radius: 71,
+                                // backgroundImage: AssetImage("assets/img/avatar.png"),
+                                backgroundImage:
+                                    AssetImage("assets/img/60111.jpg"),
+                              )
+                            : ClipOval(
+                                child: Image.file(
+                                  imgPath!,
+                                  width: 145,
+                                  height: 145,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                        Positioned(
+                          left: 95,
+                          bottom: -10,
+                          child: IconButton(
+                            onPressed: () {
+                              uploadImage2Screen();
+                            },
+                            icon: const Icon(Icons.add_a_photo),
+                            color: Color.fromARGB(255, 94, 115, 128),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),            
+                  const SizedBox(
+                    height: 33,
+                  ),
+
+
+
                   TextField(
                       controller:
                           userNameController, // 2 Handle changes to a text field
