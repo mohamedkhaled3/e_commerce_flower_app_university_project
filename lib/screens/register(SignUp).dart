@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 // import 'package:email_validator/email_validator.dart'; // 🥱🥱
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'package:image_picker/image_picker.dart';  // to can make use File as dataType
-import 'dart:io';  // to can make use File as dataType
+import 'package:image_picker/image_picker.dart'; // to can make use File as dataType
+import 'dart:io'; // to can make use File as dataType
 
 class Register extends StatefulWidget {
   Register({super.key});
@@ -36,15 +36,82 @@ class _RegisterState extends State<Register> {
       TextEditingController(); // 1 Handle changes to a text field
   File? imgPath;
 
+  showDialog() {
+    return showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: EdgeInsets.all(22),
+          color: Colors.amber[100],
+          height: 100,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      TextButton(
+                          onPressed: () async {
+                            await uploadImage2Screen(ImageSource.gallery);
+                          },
+                          child: const Text(
+                            "From Gallery",
+                            style: TextStyle(fontSize: 16),
+                          )),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Icon(Icons.photo)
+                    ],
+                  ),
+                  SizedBox(
+                    width: 22,
+                  ),
+                  Row(
+                    children: [
+                      TextButton(
+                          onPressed: () async {
+                            await uploadImage2Screen(ImageSource.camera);
+                          },
+                          child: Text(
+                            "From Camera",
+                            style: TextStyle(fontSize: 16),
+                          )),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Icon(Icons.camera)
+                    ],
+                  )
+                ],
+              )
+            ],
+          ),
+        );
+      },
+    );
+    ;
+  }
+
 // لرفع الصوره للشاشه تابعنا   Function to get img path
-    uploadImage2Screen() async {
-    final pickedImg = await ImagePicker().pickImage(source: ImageSource.gallery);  
+  uploadImage2Screen(ImageSource typeOfLoadingPhoto) async {
+    final pickedImg = await ImagePicker().pickImage(source: typeOfLoadingPhoto);
     try {
       if (pickedImg != null) {
-        setState(() {imgPath = File(pickedImg.path);});
-    } else {print("NO img selected");}
-    } catch (e) {print("Error => $e");}
+        setState(() {
+          imgPath = File(pickedImg.path);
+        });
+      } else {
+        print("NO img selected");
       }
+    } catch (e) {
+      print("Error => $e");
+    }
+    if (!mounted) return;
+    Navigator.pop(context);
+  }
 
   // لإنشاء حساب مستخدم جديد بكلمة مرور  by connection to firebase// 🥱🥱
   register() async {
@@ -158,9 +225,6 @@ class _RegisterState extends State<Register> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-
-
-
                   Container(
                     padding: EdgeInsets.all(5),
                     decoration: BoxDecoration(
@@ -187,11 +251,11 @@ class _RegisterState extends State<Register> {
                                 ),
                               ),
                         Positioned(
-                          left: 95,
+                          left: 105,
                           bottom: -10,
                           child: IconButton(
                             onPressed: () {
-                              uploadImage2Screen();
+                              showDialog();
                             },
                             icon: const Icon(Icons.add_a_photo),
                             color: Color.fromARGB(255, 94, 115, 128),
@@ -199,13 +263,10 @@ class _RegisterState extends State<Register> {
                         ),
                       ],
                     ),
-                  ),            
+                  ),
                   const SizedBox(
                     height: 33,
                   ),
-
-
-
                   TextField(
                       controller:
                           userNameController, // 2 Handle changes to a text field

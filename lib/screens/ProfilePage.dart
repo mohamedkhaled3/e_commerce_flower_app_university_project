@@ -18,18 +18,83 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final credential =
       FirebaseAuth.instance.currentUser; //credential is "currentUser"
-  CollectionReference users =  FirebaseFirestore.instance.collection('users');
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
   File? imgPath;
 
+  showDialog() {
+    return showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: EdgeInsets.all(22),
+          color: Colors.amber[100],
+          height: 100,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      TextButton(
+                          onPressed: () async {
+                            await uploadImage2Screen(ImageSource.gallery);
+                          },
+                          child: const Text(
+                            "From Gallery",
+                            style: TextStyle(fontSize: 16),
+                          )),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Icon(Icons.photo)
+                    ],
+                  ),
+                  SizedBox(
+                    width: 22,
+                  ),
+                  Row(
+                    children: [
+                      TextButton(
+                          onPressed: () async {
+                            await uploadImage2Screen(ImageSource.camera);
+                          },
+                          child: Text(
+                            "From Camera",
+                            style: TextStyle(fontSize: 16),
+                          )),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Icon(Icons.camera)
+                    ],
+                  )
+                ],
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+
 // لرفع الصوره للشاشه تابعنا   Function to get img path
-    uploadImage2Screen() async {
-    final pickedImg = await ImagePicker().pickImage(source: ImageSource.gallery);  
+  uploadImage2Screen(ImageSource typeOfLoadingPhoto) async {
+    final pickedImg =
+        await ImagePicker().pickImage(source: typeOfLoadingPhoto);
     try {
       if (pickedImg != null) {
-        setState(() {imgPath = File(pickedImg.path);});
-    } else {print("NO img selected");}
-    } catch (e) {print("Error => $e");}
+        setState(() {
+          imgPath = File(pickedImg.path);
+        });
+      } else {
+        print("NO img selected");
       }
+    } catch (e) {
+      print("Error => $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,54 +128,50 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
-
-                  Center(
-                    child: Container(
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Color.fromARGB(125, 78, 91, 110),
-                      ),
-                      child: Stack(
-                        children: [
-                          imgPath == null
-                              ? CircleAvatar(
-                                  backgroundColor:
-                                      Color.fromARGB(255, 225, 225, 225),
-                                  radius: 71,
-                                  // backgroundImage: AssetImage("assets/img/avatar.png"),
-                                  backgroundImage:
-                                      AssetImage("assets/img/60111.jpg"),
-                                )
-                              : ClipOval(
-                                  child: Image.file(
-                                    imgPath!,
-                                    width: 145,
-                                    height: 145,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                          Positioned(
-                            left: 95,
-                            bottom: -10,
-                            child: IconButton(
-                              onPressed: () {
-                                uploadImage2Screen();
-                              },
-                              icon: const Icon(Icons.add_a_photo),
-                              color: Color.fromARGB(255, 94, 115, 128),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),            
-                  const SizedBox(
-                    height: 33,
+              Center(
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color.fromARGB(125, 78, 91, 110),
                   ),
-
-
+                  child: Stack(
+                    children: [
+                      imgPath == null
+                          ? CircleAvatar(
+                              backgroundColor:
+                                  Color.fromARGB(255, 225, 225, 225),
+                              radius: 71,
+                              // backgroundImage: AssetImage("assets/img/avatar.png"),
+                              backgroundImage:
+                                  AssetImage("assets/img/60111.jpg"),
+                            )
+                          : ClipOval(
+                              child: Image.file(
+                                imgPath!,
+                                width: 145,
+                                height: 145,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                      Positioned(
+                        left: 105,
+                        bottom: -10,
+                        child: IconButton(
+                          onPressed: () {
+                            showDialog();
+                          },
+                          icon: const Icon(Icons.add_a_photo),
+                          color: Color.fromARGB(255, 94, 115, 128),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 33,
+              ),
 
               Center(
                   child: Container(
@@ -168,8 +229,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   onPressed: () {
                     setState(() {
-                      credential!.delete(); //Delete user [firebase auth]             
-                      users.doc(credential!.uid).delete(); //Delete a document [firestore]
+                      credential!.delete(); //Delete user [firebase auth]
+                      users
+                          .doc(credential!.uid)
+                          .delete(); //Delete a document [firestore]
                       Navigator.pop(context); // to go to signin_screen
                     });
                   },
