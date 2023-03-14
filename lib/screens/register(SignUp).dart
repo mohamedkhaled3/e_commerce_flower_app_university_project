@@ -11,6 +11,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart'; // to can make use File as dataType
 import 'dart:io'; // to can make use File as dataType
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path/path.dart' show basename; 
+import "dart:math";
 
 class Register extends StatefulWidget {
   Register({super.key});
@@ -34,8 +37,10 @@ class _RegisterState extends State<Register> {
       TextEditingController(); // 1 Handle changes to a text field
   final titleController =
       TextEditingController(); // 1 Handle changes to a text field
+  //Global variable
   File? imgPath;
-
+  String? imgName;
+  
   showDialog() {
     return showModalBottomSheet(
       context: context,
@@ -102,6 +107,12 @@ class _RegisterState extends State<Register> {
       if (pickedImg != null) {
         setState(() {
           imgPath = File(pickedImg.path);
+          imgName = basename(pickedImg.path);
+  int random = Random().nextInt(9999999);
+  imgName = "$random$imgName";
+      print("ــــــــــــــــــــــــــــــــــ");
+      print(imgPath);
+      print(imgName);
         });
       } else {
         print("NO img selected");
@@ -119,11 +130,15 @@ class _RegisterState extends State<Register> {
       IsLoading = true;
     });
     try {
+      // createUserWithEmailAndPassword
       final credential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text, // 3😍 Handle changes to a text field
         password: passwordController.text, // 3😎 Handle changes to a text field
       );
+      // Upload image to firebase storage
+  final storageRef = FirebaseStorage.instance.ref(imgName);
+  await storageRef.putFile(imgPath!);  
 
 // to store data in firestore  to dds the new document to your collection "users"
       CollectionReference users =
@@ -500,7 +515,7 @@ class _RegisterState extends State<Register> {
                   ),
                   ElevatedButton(
                     onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
+                      if (_formKey.currentState!.validate() && imgName != null && imgPath   != null) {
                         await register(); // await to wait finish it first then showSnackBar()
                         if (!mounted)
                           return; // this good for performance "https://dart-lang.github.io/linter/lints/use_build_context_synchronously.html"
