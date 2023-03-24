@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_flower_app_university_project/shared/ReadDataFromFireStore.dart';
 import 'package:e_commerce_flower_app_university_project/shared/colors.dart';
+import 'package:e_commerce_flower_app_university_project/shared/user_img_from_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -78,7 +79,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-// لرفع الصوره للشاشه تابعنا   Function to get img path
+// لرفع الصوره للشاشه تابعنا   Function to get img path           
   uploadImage2Screen(ImageSource typeOfLoadingPhoto) async {
     final pickedImg =
         await ImagePicker().pickImage(source: typeOfLoadingPhoto);
@@ -137,14 +138,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Stack(
                     children: [
                       imgPath == null
-                          ? CircleAvatar(
-                              backgroundColor:
-                                  Color.fromARGB(255, 225, 225, 225),
-                              radius: 71,
-                              // backgroundImage: AssetImage("assets/img/avatar.png"),
-                              backgroundImage:
-                                  AssetImage("assets/img/60111.jpg"),
-                            )
+                          ?   ImageUser()
                           : ClipOval(
                               child: Image.file(
                                 imgPath!,

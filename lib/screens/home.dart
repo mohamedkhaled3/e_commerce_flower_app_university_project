@@ -5,6 +5,7 @@ import 'package:e_commerce_flower_app_university_project/screens/details_screen.
 import 'package:e_commerce_flower_app_university_project/provider/cart.dart';
 import 'package:e_commerce_flower_app_university_project/shared/appbar.dart';
 import 'package:e_commerce_flower_app_university_project/shared/colors.dart';
+import 'package:e_commerce_flower_app_university_project/shared/user_img_from_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -98,7 +99,7 @@ class Home extends StatelessWidget {
 
             Column(
               children: [
-                 UserAccountsDrawerHeader(
+                 const UserAccountsDrawerHeader(
                   // to make background image "flower image"
                   decoration: BoxDecoration(
                     image: DecorationImage(
@@ -120,13 +121,8 @@ class Home extends StatelessWidget {
                   ),
                   //
                   currentAccountPictureSize: Size.square(72.0),
-                  // to make  CircleAvatar "circular image " or " profile image "
-                  currentAccountPicture: CircleAvatar(
-                    radius: 55,
-                     backgroundImage: AssetImage("assets/img/do_it.jpeg"),
-                   // backgroundImage: NetworkImage(userData.photoURL!),
-
-                  ),
+                  // to get image from firebase
+                  currentAccountPicture: ImageUser()
                 ),
                 ListTile(
                     // ListTile is widget  we use it in past in "المشروع بتاع " WORLD TIME APP Title in center
@@ -157,8 +153,8 @@ class Home extends StatelessWidget {
                     leading: const Icon(Icons.help_center),
                     onTap: () {}),
                 ListTile(
-                      title: Text("Profile Page"),
-                      leading: Icon(Icons.person),
+                      title: const Text("Profile Page"),
+                      leading: const Icon(Icons.person),
                       onTap: () {
                         Navigator.push( //" Navigator.push" to when click to "👈" in home go to ProfilePage
                           context,
