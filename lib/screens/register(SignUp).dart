@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart'; // to can make use File as dataType
 import 'dart:io'; // to can make use File as dataType
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:path/path.dart' show basename; 
+import 'package:path/path.dart' show basename;
 import "dart:math";
 
 class Register extends StatefulWidget {
@@ -40,7 +40,7 @@ class _RegisterState extends State<Register> {
   //Global variable
   File? imgPath;
   String? imgName;
-  
+
   showDialog() {
     return showModalBottomSheet(
       context: context,
@@ -108,11 +108,11 @@ class _RegisterState extends State<Register> {
         setState(() {
           imgPath = File(pickedImg.path);
           imgName = basename(pickedImg.path);
-  int random = Random().nextInt(9999999);
-  imgName = "$random$imgName";
-      print("ــــــــــــــــــــــــــــــــــ");
-      print(imgPath);
-      print(imgName);
+          int random = Random().nextInt(9999999);
+          imgName = "$random$imgName";
+          print("ــــــــــــــــــــــــــــــــــ");
+          print(imgPath);
+          print(imgName);
         });
       } else {
         print("NO img selected");
@@ -137,8 +137,13 @@ class _RegisterState extends State<Register> {
         password: passwordController.text, // 3😎 Handle changes to a text field
       );
       // Upload image to firebase storage
-  final storageRef = FirebaseStorage.instance.ref(imgName);
-  await storageRef.putFile(imgPath!);  
+      // final storageRef = FirebaseStorage.instance.ref(imgName);
+      final storageRef = FirebaseStorage.instance.ref("user-imgs/${imgName}"); // to store img in folder called (user-imgs)
+
+      await storageRef.putFile(imgPath!);
+
+      // Get img url
+      String url = await storageRef.getDownloadURL();
 
 // to store data in firestore  to dds the new document to your collection "users"
       CollectionReference users =
@@ -146,6 +151,7 @@ class _RegisterState extends State<Register> {
       users
           .doc(credential.user!.uid) // to make document = id(token) ..
           .set({
+            'imageLink': url,
             'userName':
                 userNameController.text, // 3 Handle changes to a text field
             'age': ageController.text, // 3 Handle changes to a text field
@@ -515,7 +521,9 @@ class _RegisterState extends State<Register> {
                   ),
                   ElevatedButton(
                     onPressed: () async {
-                      if (_formKey.currentState!.validate() && imgName != null && imgPath   != null) {
+                      if (_formKey.currentState!.validate() &&
+                          imgName != null &&
+                          imgPath != null) {
                         await register(); // await to wait finish it first then showSnackBar()
                         if (!mounted)
                           return; // this good for performance "https://dart-lang.github.io/linter/lints/use_build_context_synchronously.html"
