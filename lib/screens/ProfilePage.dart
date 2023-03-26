@@ -1,12 +1,15 @@
 import 'dart:io';
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_flower_app_university_project/shared/ReadDataFromFireStore.dart';
 import 'package:e_commerce_flower_app_university_project/shared/colors.dart';
 import 'package:e_commerce_flower_app_university_project/shared/user_img_from_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:path/path.dart' show basename;
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key? key}) : super(key: key);
@@ -18,15 +21,17 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final credential =
       FirebaseAuth.instance.currentUser; //credential is "currentUser"
+  // Store img url in firestore[database]
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   File? imgPath;
+  String? imgName;
 
   showDialog() {
     return showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
         return Container(
-          padding: EdgeInsets.all(22),
+          padding: const EdgeInsets.all(22),
           color: Colors.amber[100],
           height: 100,
           child: Column(
@@ -40,18 +45,30 @@ class _ProfilePageState extends State<ProfilePage> {
                       TextButton(
                           onPressed: () async {
                             await uploadImage2Screen(ImageSource.gallery);
+                                        if( imgPath != null){
+                                                                      // Upload image to firebase storage
+                            final storageRef = FirebaseStorage.instance
+                                .ref("/user-imgs/$imgName");
+                            await storageRef.putFile(imgPath!);
+                            // Get img url
+                            String url = await storageRef.getDownloadURL();
+                            // Store img url in firestore[database]
+                            users.doc(credential!.uid).update({
+                              "imageLink": url,
+                            });
+                                        }
                           },
                           child: const Text(
                             "From Gallery",
                             style: TextStyle(fontSize: 16),
                           )),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
-                      Icon(Icons.photo)
+                      const Icon(Icons.photo)
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 22,
                   ),
                   Row(
@@ -59,15 +76,27 @@ class _ProfilePageState extends State<ProfilePage> {
                       TextButton(
                           onPressed: () async {
                             await uploadImage2Screen(ImageSource.camera);
+                            if( imgPath != null){ 
+                            // Upload image to firebase storage
+                            final storageRef =
+                                FirebaseStorage.instance.ref(imgName);
+                            await storageRef.putFile(imgPath!);
+                            // Get img url
+                            String url = await storageRef.getDownloadURL();
+                            // Store img url in firestore[database]
+                            users.doc(credential!.uid).update({
+                              "imageLink": url,
+                            });
+                            }
                           },
-                          child: Text(
+                          child: const Text(
                             "From Camera",
                             style: TextStyle(fontSize: 16),
                           )),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
-                      Icon(Icons.camera)
+                      const Icon(Icons.camera)
                     ],
                   )
                 ],
@@ -79,14 +108,16 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-// لرفع الصوره للشاشه تابعنا   Function to get img path           
+// لرفع الصوره للشاشه تابعنا   Function to get img path
   uploadImage2Screen(ImageSource typeOfLoadingPhoto) async {
-    final pickedImg =
-        await ImagePicker().pickImage(source: typeOfLoadingPhoto);
+    final pickedImg = await ImagePicker().pickImage(source: typeOfLoadingPhoto);
     try {
       if (pickedImg != null) {
         setState(() {
           imgPath = File(pickedImg.path);
+          imgName = basename(pickedImg.path);
+          int random = Random().nextInt(9999999);
+          imgName = "$random$imgName";
         });
       } else {
         print("NO img selected");
@@ -107,20 +138,20 @@ class _ProfilePageState extends State<ProfilePage> {
               if (!mounted) return;
               Navigator.pop(context);
             },
-            label: Text(
+            label: const Text(
               "logout",
               style: TextStyle(
                 color: Colors.white,
               ),
             ),
-            icon: Icon(
+            icon: const Icon(
               Icons.logout,
               color: Colors.white,
             ),
           )
         ],
         backgroundColor: appbarGreen,
-        title: Text("Profile Page"),
+        title: const Text("Profile Page"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(22.0),
@@ -130,15 +161,15 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               Center(
                 child: Container(
-                  padding: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.all(5),
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     color: Color.fromARGB(125, 78, 91, 110),
                   ),
                   child: Stack(
                     children: [
                       imgPath == null
-                          ?   ImageUser()
+                          ? const ImageUser()
                           : ClipOval(
                               child: Image.file(
                                 imgPath!,
@@ -155,7 +186,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             showDialog();
                           },
                           icon: const Icon(Icons.add_a_photo),
-                          color: Color.fromARGB(255, 94, 115, 128),
+                          color: const Color.fromARGB(255, 94, 115, 128),
                         ),
                       ),
                     ],
@@ -168,11 +199,11 @@ class _ProfilePageState extends State<ProfilePage> {
 
               Center(
                   child: Container(
-                padding: EdgeInsets.all(11),
+                padding: const EdgeInsets.all(11),
                 decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 131, 177, 255),
+                    color: const Color.fromARGB(255, 131, 177, 255),
                     borderRadius: BorderRadius.circular(11)),
-                child: Text(
+                child: const Text(
                   "Info from firebase Auth",
                   style: TextStyle(
                     fontSize: 22,
@@ -182,36 +213,36 @@ class _ProfilePageState extends State<ProfilePage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 11,
                   ),
                   Text(
                     "Email: ${credential!.email}     ",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 17,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 11,
                   ),
                   Text(
                     "Created date: ${DateFormat("MMMM d, y").format(credential!.metadata.creationTime!)}", // to give first data of login
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 17,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 11,
                   ),
                   Text(
                     "Created date: ${DateFormat("MMMM d, y").format(credential!.metadata.lastSignInTime!)}", // to give last data of login
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 17,
                     ),
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Center(
@@ -229,22 +260,22 @@ class _ProfilePageState extends State<ProfilePage> {
                       Navigator.pop(context); // to go to signin_screen
                     });
                   },
-                  child: Text(
+                  child: const Text(
                     'Delete User',
                     style: TextStyle(fontSize: 20),
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Center(
                 child: Container(
-                  padding: EdgeInsets.all(11),
+                  padding: const EdgeInsets.all(11),
                   decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 131, 177, 255),
+                      color: const Color.fromARGB(255, 131, 177, 255),
                       borderRadius: BorderRadius.circular(11)),
-                  child: Text(
+                  child: const Text(
                     "Info from firebase firestore",
                     style: TextStyle(
                       fontSize: 20,

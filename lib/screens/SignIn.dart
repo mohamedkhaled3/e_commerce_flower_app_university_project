@@ -113,14 +113,14 @@ class _LoginState extends State<Login> {
                 ElevatedButton(
                   onPressed: () async {
                     await signIn(); // await to wait finish it first then showSnackBa
-                    // we use it in main to make user go to Home_page automatically when login
+                    // // we use it in main to make user go to Home_page automatically when login
                     if (!mounted)return; // this good for performance  //  "https://dart-lang.github.io/linter/lints/use_build_context_synchronously.html"
                     // //Navigate to a new screen and back "Login" without routes
-                    // Navigator.pushReplacement(
-                    // //   // we dont use "push" we use pushReplacement to make pop "delete" for login stack automatically
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => Home()),
-                    // );
+                    Navigator.pushReplacement(
+                    //   // we dont use "push" we use pushReplacement to make pop "delete" for login stack automatically
+                      context,
+                      MaterialPageRoute(builder: (context) => Home()),
+                    );
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(BTNgreen),
