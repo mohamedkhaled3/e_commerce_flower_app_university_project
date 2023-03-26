@@ -46,6 +46,7 @@ dependencies:
   intl: ^0.17.0     # to deal with data & time 
   image_picker: ^0.8.7
   firebase_storage: ^11.0.15
+  path: ^1.8.3
                            
 
 

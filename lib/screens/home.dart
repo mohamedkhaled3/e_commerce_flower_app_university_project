@@ -15,8 +15,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final classInstance = Provider.of<Cart>(context); // Cart is 😍😍 2 provider
-    final userData = FirebaseAuth.instance
-        .currentUser!; // to get data when login with "google or facebok or twitter"
+// to get data when login with "google or facebok or twitter"
         
     return Scaffold(
       body: Padding(
@@ -144,7 +143,7 @@ class Home extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              CheckOut(), // "CheckOut" is page that navigater for it &&
+                              const CheckOut(), // "CheckOut" is page that navigater for it &&
                         ),
                       );
                     }),
@@ -159,7 +158,7 @@ class Home extends StatelessWidget {
                         Navigator.push( //" Navigator.push" to when click to "👈" in home go to ProfilePage
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ProfilePage(),
+                            builder: (context) => const ProfilePage(),
                           ),
                         );
                       }),
@@ -181,7 +180,7 @@ class Home extends StatelessWidget {
       ),
       appBar: AppBar(
         // leading: Text("rfff"), //////////////// remove icon of Drawer
-        backgroundColor: appbarGreen,
+        backgroundColor: appBarGreen,
         title: const Text("Home"),
         // ignore: prefer_const_literals_to_create_immutables
         actions: [

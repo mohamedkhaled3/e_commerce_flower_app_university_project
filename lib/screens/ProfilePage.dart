@@ -12,7 +12,7 @@ import 'package:intl/intl.dart';
 import 'package:path/path.dart' show basename;
 
 class ProfilePage extends StatefulWidget {
-  ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -150,7 +150,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           )
         ],
-        backgroundColor: appbarGreen,
+        backgroundColor: appBarGreen,
         title: const Text("Profile Page"),
       ),
       body: Padding(

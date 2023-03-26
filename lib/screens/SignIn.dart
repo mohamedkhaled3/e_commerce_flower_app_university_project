@@ -11,15 +11,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
-  Login({super.key});
+  const Login({super.key});
 
   @override
   State<Login> createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
-  bool IsVisibility_password = false;
-  bool IsLoading = false;
+  bool isVisibilityPassword = false;
+  bool isLoading = false;
   final emailController = TextEditingController();
   // 1😍 Handle changes to a text field
   final passwordController = TextEditingController();
@@ -27,19 +27,15 @@ class _LoginState extends State<Login> {
 
   signIn() async {
     setState(() {
-      IsLoading = true;
+      isLoading = true;
     });
     try {
-      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text, // 3😍 Handle changes to a text field
-        password: passwordController.text, // 3😎 Handle changes to a text field
-      );
       // showSnackBar(context, 'Done ...');
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, 'ERROR ..... : ${e.code}');
     }
     setState(() {
-      IsLoading = false;
+      isLoading = false;
     });
   }
 
@@ -57,7 +53,7 @@ class _LoginState extends State<Login> {
       Provider.of<GoogleSignInProvider>(context); // Cart is 😍😍 2 provider
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: appbarGreen,
+        backgroundColor: appBarGreen,
         title: const Text("Sign in"),
       ),
       backgroundColor: const Color.fromARGB(255, 247, 247, 247),
@@ -91,18 +87,18 @@ class _LoginState extends State<Login> {
                     controller:
                         passwordController, // 2😎 Handle changes to a text field
                     keyboardType: TextInputType.text, // shape of keyboard
-                    obscureText: IsVisibility_password
+                    obscureText: isVisibilityPassword 
                         ? false
                         : true, // text not password ***, // text not password ***
                     decoration: decorationTextField.copyWith(
                       hintText: "Enter Your Passaword",
                       suffixIcon: IconButton(
-                        icon: IsVisibility_password
+                        icon: isVisibilityPassword 
                             ? const Icon(Icons.visibility)
                             : const Icon(Icons.visibility_off),
                         onPressed: () {
                           setState(() {
-                            IsVisibility_password = !IsVisibility_password;
+                            isVisibilityPassword = !isVisibilityPassword ;
                           });
                         },
                       ),
@@ -119,17 +115,17 @@ class _LoginState extends State<Login> {
                     Navigator.pushReplacement(
                     //   // we dont use "push" we use pushReplacement to make pop "delete" for login stack automatically
                       context,
-                      MaterialPageRoute(builder: (context) => Home()),
+                      MaterialPageRoute(builder: (context) => const Home()),
                     );
                   },
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(BTNgreen),
+                    backgroundColor: MaterialStateProperty.all(bTNgreen),
                     padding:
                         MaterialStateProperty.all(const EdgeInsets.all(12)),
                     shape: MaterialStateProperty.all(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8))),
                   ),
-                  child: IsLoading
+                  child: isLoading
                       ? const CircularProgressIndicator(
                           color: Colors.white,
                         )
@@ -147,7 +143,7 @@ class _LoginState extends State<Login> {
                         // pushReplacement to make pop "delete" for login stack automatically but push to let user can back again
                         context, ////Navigate to a new screen and back "Sign up" without routes
                         MaterialPageRoute(
-                            builder: (context) => ForgotPassword()),
+                            builder: (context) => const ForgotPassword()),
                       );
                     },
                     child: const Text(
@@ -178,7 +174,7 @@ class _LoginState extends State<Login> {
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 17,
                 ),
                 SizedBox(
@@ -205,14 +201,14 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(vertical: 27),
+                  margin: const EdgeInsets.symmetric(vertical: 27),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       GestureDetector(
                         onTap: () {},
                         child: Container(
-                          padding: EdgeInsets.all(13),
+                          padding: const EdgeInsets.all(13),
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border:
@@ -224,7 +220,7 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 22,
                       ),
                       GestureDetector(
@@ -232,7 +228,7 @@ class _LoginState extends State<Login> {
                           googleSignInProvider.googlelogin();
                         },
                         child: Container(
-                          padding: EdgeInsets.all(13),
+                          padding: const EdgeInsets.all(13),
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border:
@@ -244,13 +240,13 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 22,
                       ),
                       GestureDetector(
                         onTap: () {},
                         child: Container(
-                          padding: EdgeInsets.all(13),
+                          padding: const EdgeInsets.all(13),
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border:

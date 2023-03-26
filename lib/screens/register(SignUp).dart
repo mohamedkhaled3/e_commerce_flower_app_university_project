@@ -16,17 +16,17 @@ import 'package:path/path.dart' show basename;
 import "dart:math";
 
 class Register extends StatefulWidget {
-  Register({super.key});
+  const Register({super.key});
 
   @override
   State<Register> createState() => _RegisterState();
 }
 
 class _RegisterState extends State<Register> {
-  bool IsVisibility_password = false;
+  bool isVisibility_password = false;
   final _formKey = GlobalKey<
       FormState>(); //😉😉 to make validation when data it wrong "not valid " dont send to firebase
-  bool IsLoading = false;
+  bool isLoading = false;
   final emailController =
       TextEditingController(); // 1😍 Handle changes to a text field
   final passwordController =
@@ -46,7 +46,7 @@ class _RegisterState extends State<Register> {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          padding: EdgeInsets.all(22),
+          padding: const EdgeInsets.all(22),
           color: Colors.amber[100],
           height: 100,
           child: Column(
@@ -65,13 +65,13 @@ class _RegisterState extends State<Register> {
                             "From Gallery",
                             style: TextStyle(fontSize: 16),
                           )),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
-                      Icon(Icons.photo)
+                      const Icon(Icons.photo)
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 22,
                   ),
                   Row(
@@ -80,14 +80,14 @@ class _RegisterState extends State<Register> {
                           onPressed: () async {
                             await uploadImage2Screen(ImageSource.camera);
                           },
-                          child: Text(
+                          child: const Text(
                             "From Camera",
                             style: TextStyle(fontSize: 16),
                           )),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
-                      Icon(Icons.camera)
+                      const Icon(Icons.camera)
                     ],
                   )
                 ],
@@ -127,7 +127,7 @@ class _RegisterState extends State<Register> {
   // لإنشاء حساب مستخدم جديد بكلمة مرور  by connection to firebase// 🥱🥱
   register() async {
     setState(() {
-      IsLoading = true;
+      isLoading = true;
     });
     try {
       // createUserWithEmailAndPassword
@@ -176,7 +176,7 @@ class _RegisterState extends State<Register> {
       showSnackBar(context, e.toString());
     }
     setState(() {
-      IsLoading = false;
+      isLoading = false;
     });
   }
 
@@ -230,9 +230,9 @@ class _RegisterState extends State<Register> {
         Provider.of<GoogleSignInProvider>(context); // Cart is 😍😍 2 provider
     return Scaffold(
       appBar: AppBar(
-        title: Text("Register (Sign Up) "),
+        title: const Text("Register (Sign Up) "),
         elevation: 0,
-        backgroundColor: appbarGreen,
+        backgroundColor: appBarGreen,
       ),
       backgroundColor: const Color.fromARGB(255, 247, 247, 247),
       body: Center(
@@ -247,15 +247,15 @@ class _RegisterState extends State<Register> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
-                    padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
+                    padding: const EdgeInsets.all(5),
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: Color.fromARGB(125, 78, 91, 110),
                     ),
                     child: Stack(
                       children: [
                         imgPath == null
-                            ? CircleAvatar(
+                            ? const CircleAvatar(
                                 backgroundColor:
                                     Color.fromARGB(255, 225, 225, 225),
                                 radius: 71,
@@ -279,7 +279,7 @@ class _RegisterState extends State<Register> {
                               showDialog();
                             },
                             icon: const Icon(Icons.add_a_photo),
-                            color: Color.fromARGB(255, 94, 115, 128),
+                            color: const Color.fromARGB(255, 94, 115, 128),
                           ),
                         ),
                       ],
@@ -297,7 +297,7 @@ class _RegisterState extends State<Register> {
                       //copyWith(hintText: "Enter Your Passaword",) to add a new "ميزة"
                       decoration: decorationTextField.copyWith(
                         hintText: "Enter Your User Name :",
-                        suffixIcon: Icon(
+                        suffixIcon: const Icon(
                           Icons.person,
                         ), // "suffixIcon" in right of texstfield
                       )),
@@ -311,7 +311,7 @@ class _RegisterState extends State<Register> {
                       obscureText: false,
                       decoration: decorationTextField.copyWith(
                           hintText: "Enter Your age : ",
-                          suffixIcon: Icon(Icons.pest_control_rodent))),
+                          suffixIcon: const Icon(Icons.pest_control_rodent))),
                   const SizedBox(
                     height: 22,
                   ),
@@ -322,7 +322,7 @@ class _RegisterState extends State<Register> {
                       obscureText: false,
                       decoration: decorationTextField.copyWith(
                           hintText: "Enter Your title : ",
-                          suffixIcon: Icon(Icons.person_outline))),
+                          suffixIcon: const Icon(Icons.person_outline))),
                   const SizedBox(
                     height: 22,
                   ),
@@ -347,7 +347,7 @@ class _RegisterState extends State<Register> {
                       obscureText: false,
                       decoration: decorationTextField.copyWith(
                         hintText: "Enter Your Email : ",
-                        suffixIcon: Icon(
+                        suffixIcon: const Icon(
                           Icons.email,
                         ), // "suffixIcon" in right of texstfield
                       )),
@@ -371,18 +371,18 @@ class _RegisterState extends State<Register> {
                       controller:
                           passwordController, // 2😎 Handle changes to a text field
                       keyboardType: TextInputType.text, // shape of keyboard
-                      obscureText: IsVisibility_password
+                      obscureText: isVisibility_password
                           ? false
                           : true, // text password ***
                       decoration: decorationTextField.copyWith(
                         hintText: "Enter Your Password",
                         suffixIcon: IconButton(
-                          icon: IsVisibility_password
-                              ? Icon(Icons.visibility)
-                              : Icon(Icons.visibility_off),
+                          icon: isVisibility_password
+                              ? const Icon(Icons.visibility)
+                              : const Icon(Icons.visibility_off),
                           onPressed: () {
                             setState(() {
-                              IsVisibility_password = !IsVisibility_password;
+                              isVisibility_password = !isVisibility_password;
                             });
                           },
                         ), // "suffixIcon" in right of texstfield
@@ -531,14 +531,14 @@ class _RegisterState extends State<Register> {
                         Navigator.pushReplacement(
                           // we dont use "push" we use pushReplacement to make pop "delete" for login stack automatically
                           context,
-                          MaterialPageRoute(builder: (context) => Login()),
+                          MaterialPageRoute(builder: (context) => const Login()),
                         );
                       } else {
                         showSnackBar(context, "ERROR");
                       } //😉😉 to make validation when data it wrong "not valid " dont send to firebase && and give us "showSnackBar (ERROR)"
                     },
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(BTNgreen),
+                      backgroundColor: MaterialStateProperty.all(bTNgreen),
                       padding:
                           MaterialStateProperty.all(const EdgeInsets.all(12)),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
@@ -546,7 +546,7 @@ class _RegisterState extends State<Register> {
                     ),
                     // child: const Text("Register",style: TextStyle(fontSize: 19),  ), // false
                     // child: CircularProgressIndicator(color: Colors.white,), // to make ⏱ Loadin_shape // true
-                    child: IsLoading
+                    child: isLoading
                         ? const CircularProgressIndicator(
                             color: Colors.white,
                           )
@@ -569,7 +569,7 @@ class _RegisterState extends State<Register> {
                           Navigator.pushReplacement(
                             // we dont use "push" we use pushReplacement to make pop "delete" for login stack automatically
                             context,
-                            MaterialPageRoute(builder: (context) => Login()),
+                            MaterialPageRoute(builder: (context) => const Login()),
                           );
                         },
                         child: const Text('Sign in',
@@ -579,7 +579,7 @@ class _RegisterState extends State<Register> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 17,
                   ),
                   SizedBox(
@@ -606,14 +606,14 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(vertical: 27),
+                    margin: const EdgeInsets.symmetric(vertical: 27),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GestureDetector(
                           onTap: () {},
                           child: Container(
-                            padding: EdgeInsets.all(13),
+                            padding: const EdgeInsets.all(13),
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border:
@@ -625,7 +625,7 @@ class _RegisterState extends State<Register> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 22,
                         ),
                         GestureDetector(
@@ -633,7 +633,7 @@ class _RegisterState extends State<Register> {
                             googleSignInProvider.googlelogin();
                           },
                           child: Container(
-                            padding: EdgeInsets.all(13),
+                            padding: const EdgeInsets.all(13),
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border:
@@ -645,13 +645,13 @@ class _RegisterState extends State<Register> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 22,
                         ),
                         GestureDetector(
                           onTap: () {},
                           child: Container(
-                            padding: EdgeInsets.all(13),
+                            padding: const EdgeInsets.all(13),
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 border:

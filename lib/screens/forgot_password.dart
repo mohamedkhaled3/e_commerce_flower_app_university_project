@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 //most data in register_class not login_class bec validation
 
 class ForgotPassword extends StatefulWidget {
-  ForgotPassword({super.key});
+  const ForgotPassword({super.key});
 
   @override
   State<ForgotPassword> createState() => _ForgotPasswordState();
@@ -16,33 +16,32 @@ class ForgotPassword extends StatefulWidget {
 class _ForgotPasswordState extends State<ForgotPassword> {
   final _formKey = GlobalKey<
       FormState>(); //😉😉 to make validation when data it wrong "not valid " dont send to fireba
-  bool IsLoading = false;
-  final emailController = TextEditingController();  // 1😍 Handle changes to a text field
+  bool isLoading = false;
+  final emailController =
+      TextEditingController(); // 1😍 Handle changes to a text field
 
 // إرسال بريد إلكتروني لإعادة تعيين كلمة المرور
-sendPasswordResetEmail() async{
-  setState(() {
-      IsLoading = true;
-  });
-  try {
-       await FirebaseAuth.instance
-      .sendPasswordResetEmail(email: emailController.text);
-       if (!mounted) return; // increase performance
+  sendPasswordResetEmail() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: emailController.text);
+      if (!mounted) return; // increase performance
       showSnackBar(context, 'Done - Please check ur email');
       //Navigate to a new screen and back "Login" without routes
       Navigator.pushReplacement(
-      // we dont use "push" we use pushReplacement to make pop "delete" for login stack automatically
-      context,MaterialPageRoute(builder: (context) =>  Login()), );                        
-                                                   
-  } on FirebaseAuthException catch (e) {
-          showSnackBar(context, 'ERROR ..... : ${e.code}');
-  }
-      setState(() {
-      IsLoading = false;
-      
+        // we dont use "push" we use pushReplacement to make pop "delete" for login stack automatically
+        context, MaterialPageRoute(builder: (context) => const Login()),
+      );
+    } on FirebaseAuthException catch (e) {
+      showSnackBar(context, 'ERROR ..... : ${e.code}');
+    }
+    setState(() {
+      isLoading = false;
     });
-}
-
+  }
 
   @override
   void dispose() {
@@ -56,7 +55,7 @@ sendPasswordResetEmail() async{
       appBar: AppBar(
         title: const Text("Reset Password"),
         elevation: 0,
-        backgroundColor: appbarGreen,
+        backgroundColor: appBarGreen,
       ),
       body: Center(
         child: Padding(
@@ -121,7 +120,7 @@ sendPasswordResetEmail() async{
                     } //😉😉 to make validation when data it wrong "not valid " dont send to firebase && and give us "showSnackBar (ERROR)"
                   },
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(BTNgreen),
+                    backgroundColor: MaterialStateProperty.all(bTNgreen),
                     padding:
                         MaterialStateProperty.all(const EdgeInsets.all(12)),
                     shape: MaterialStateProperty.all(RoundedRectangleBorder(
@@ -129,7 +128,7 @@ sendPasswordResetEmail() async{
                   ),
                   // child: const Text("Register",style: TextStyle(fontSize: 19),  ), // false
                   // child: CircularProgressIndicator(color: Colors.white,), // to make ⏱ Loadin_shape // true
-                  child: IsLoading
+                  child: isLoading
                       ? const CircularProgressIndicator(
                           color: Colors.white,
                         )

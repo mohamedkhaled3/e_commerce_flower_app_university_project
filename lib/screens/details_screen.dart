@@ -1,11 +1,11 @@
 import 'package:e_commerce_flower_app_university_project/model/item.dart';
-import 'package:e_commerce_flower_app_university_project/shared/appbar.dart';
+import 'package:e_commerce_flower_app_university_project/shared/appBar.dart';
 import 'package:e_commerce_flower_app_university_project/shared/colors.dart';
 import 'package:flutter/material.dart';
 
 class Details extends StatefulWidget {
-  Item product;
-  Details({required this.product});
+ final Item product;
+  const Details({super.key, required this.product});
 
   @override
   State<Details> createState() => _DetailsState();
@@ -21,7 +21,7 @@ class _DetailsState extends State<Details> {
     return Scaffold(
         appBar: AppBar(
           // leading: Text("rfff"), //////////////// remove icon of Drawer
-          backgroundColor: appbarGreen,
+          backgroundColor: appBarGreen,
           title: const Text("Details Screen"),
           actions: const [   // the end of AppBar  & "leading is start of AppBar"
           
@@ -133,7 +133,7 @@ class _DetailsState extends State<Details> {
                 },
                 clipBehavior: Clip.none,
                 child: Text(
-                  isShowAll_Or_ShowLess ? 'showe more ' : "show less",
+                  isShowAll_Or_ShowLess ? 'show more ' : "show less",
                   style: const TextStyle(
                       color: Color.fromARGB(255, 14, 140, 171), fontSize: 18),
                 ),

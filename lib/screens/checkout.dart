@@ -1,19 +1,20 @@
 // الشراء
-import 'package:e_commerce_flower_app_university_project/model/item.dart';
 import 'package:e_commerce_flower_app_university_project/provider/cart.dart';
-import 'package:e_commerce_flower_app_university_project/shared/appbar.dart';
+import 'package:e_commerce_flower_app_university_project/shared/appBar.dart';
 import 'package:e_commerce_flower_app_university_project/shared/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CheckOut extends StatelessWidget {
+  const CheckOut({super.key});
+
   @override
   Widget build(BuildContext context) {
     final classInstances =
         Provider.of<Cart>(context); // Cart is 😍😍 2 provider
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: appbarGreen,
+        backgroundColor: appBarGreen,
         title: const Text("CheckOut Screen"),
         actions: const [ProductsAndPrice()],
       ),
@@ -53,7 +54,7 @@ class CheckOut extends StatelessWidget {
           ElevatedButton(
             onPressed: () {},
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(BTPink),
+              backgroundColor: MaterialStateProperty.all(bTPink),
               padding: MaterialStateProperty.all(const EdgeInsets.all(12)),
               shape: MaterialStateProperty.all(RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8))),

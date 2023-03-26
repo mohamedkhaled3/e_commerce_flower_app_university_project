@@ -1,19 +1,13 @@
-import 'package:e_commerce_flower_app_university_project/model/item.dart';
-import 'package:e_commerce_flower_app_university_project/provider/google_signin.dart';
-import 'package:e_commerce_flower_app_university_project/screens/VerifyEmail.dart';
-import 'package:e_commerce_flower_app_university_project/screens/checkout.dart';
-import 'package:e_commerce_flower_app_university_project/screens/details_screen.dart';
+
+import 'package:e_commerce_flower_app_university_project/provider/google_SignIn.dart';
 import 'package:e_commerce_flower_app_university_project/screens/home.dart';
 import 'package:e_commerce_flower_app_university_project/screens/SignIn.dart';
-import 'package:e_commerce_flower_app_university_project/screens/register(SignUp).dart';
 import 'package:e_commerce_flower_app_university_project/provider/cart.dart';
 import 'package:e_commerce_flower_app_university_project/shared/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 Future<void> main() async {
   // the last step of firebase
@@ -48,7 +42,7 @@ class MyApp extends StatelessWidget {
             builder: (context, snapshot) {
               // to make chick   // snapshot like screenshot
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
+                return const Center(
                     child: CircularProgressIndicator(
                   color: Colors.white,
                 ));
@@ -58,9 +52,9 @@ class MyApp extends StatelessWidget {
               } else if (snapshot.hasData) {
                 //  go to VerifyEmailPage
                 // return VerifyEmailPage();
-                return Home(); // OR verify email
+                return const Home(); // OR verify email
               } else {
-                return Login();
+                return const Login();
               }
             },
           )),

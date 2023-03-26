@@ -78,7 +78,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
             appBar: AppBar(
               title: Text("Verify Email"),
               elevation: 0,
-              backgroundColor: appbarGreen,
+              backgroundColor: appBarGreen,
             ),
             body: Padding(
               padding: const EdgeInsets.all(20.0),
@@ -98,7 +98,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                        canResendEmail? sendVerificationEmail() : null; // to send another message to email when click to "Resent Email"
                     },
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(BTNgreen),
+                      backgroundColor: MaterialStateProperty.all(bTNgreen),
                       padding: MaterialStateProperty.all(EdgeInsets.all(12)),
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8))),

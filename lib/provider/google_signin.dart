@@ -8,6 +8,7 @@
     GoogleSignInAccount get user => _user!;
     googlelogin() async {
     final googleUser = await googleSignIn.signIn();
+    // ignore: unnecessary_null_comparison
     if (googleSignIn == null) return;
     _user = googleUser;
     final googleAuth = await googleUser?.authentication;
