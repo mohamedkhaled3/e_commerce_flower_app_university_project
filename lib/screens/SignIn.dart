@@ -1,4 +1,5 @@
-import 'package:e_commerce_flower_app_university_project/provider/google_signin.dart';
+
+import 'package:e_commerce_flower_app_university_project/provider/google_SignIn.dart';
 import 'package:e_commerce_flower_app_university_project/screens/forgot_password.dart';
 import 'package:e_commerce_flower_app_university_project/screens/home.dart';
 import 'package:e_commerce_flower_app_university_project/screens/register(SignUp).dart';
@@ -30,6 +31,10 @@ class _LoginState extends State<Login> {
       isLoading = true;
     });
     try {
+         final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text, // 3😍 Handle changes to a text field
+        password: passwordController.text, // 3😎 Handle changes to a text field
+      );
       // showSnackBar(context, 'Done ...');
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, 'ERROR ..... : ${e.code}');
@@ -49,7 +54,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-      final googleSignInProvider =
+      final GoogleSignInProvider googleSignInProvider =
       Provider.of<GoogleSignInProvider>(context); // Cart is 😍😍 2 provider
     return Scaffold(
       appBar: AppBar(

@@ -3,7 +3,8 @@ import 'package:e_commerce_flower_app_university_project/screens/ProfilePage.dar
 import 'package:e_commerce_flower_app_university_project/screens/checkout.dart';
 import 'package:e_commerce_flower_app_university_project/screens/details_screen.dart';
 import 'package:e_commerce_flower_app_university_project/provider/cart.dart';
-import 'package:e_commerce_flower_app_university_project/shared/appbar.dart';
+import 'package:e_commerce_flower_app_university_project/shared/appBar.dart';
+
 import 'package:e_commerce_flower_app_university_project/shared/colors.dart';
 import 'package:e_commerce_flower_app_university_project/shared/user_img_from_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -16,6 +17,8 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     final classInstance = Provider.of<Cart>(context); // Cart is 😍😍 2 provider
 // to get data when login with "google or facebok or twitter"
+final userData = FirebaseAuth.instance
+        .currentUser!; // to get data when login with "google or facebok or twitter"
         
     return Scaffold(
       body: Padding(

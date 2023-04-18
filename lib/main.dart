@@ -1,13 +1,13 @@
 
-import 'package:e_commerce_flower_app_university_project/provider/google_SignIn.dart';
 import 'package:e_commerce_flower_app_university_project/screens/home.dart';
 import 'package:e_commerce_flower_app_university_project/screens/SignIn.dart';
+import 'package:e_commerce_flower_app_university_project/provider/google_SignIn.dart';
 import 'package:e_commerce_flower_app_university_project/provider/cart.dart';
 import 'package:e_commerce_flower_app_university_project/shared/snackbar.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
   // the last step of firebase

@@ -531,7 +531,7 @@ class _RegisterState extends State<Register> {
                         Navigator.pushReplacement(
                           // we dont use "push" we use pushReplacement to make pop "delete" for login stack automatically
                           context,
-                          MaterialPageRoute(builder: (context) => const Login()),
+                          MaterialPageRoute(builder: (context) =>  Login()),
                         );
                       } else {
                         showSnackBar(context, "ERROR");
@@ -569,7 +569,7 @@ class _RegisterState extends State<Register> {
                           Navigator.pushReplacement(
                             // we dont use "push" we use pushReplacement to make pop "delete" for login stack automatically
                             context,
-                            MaterialPageRoute(builder: (context) => const Login()),
+                            MaterialPageRoute(builder: (context) =>  Login()),
                           );
                         },
                         child: const Text('Sign in',
